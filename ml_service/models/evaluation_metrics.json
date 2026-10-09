@@ -1,0 +1,154 @@
+{
+  "metrics": {
+    "Logistic Regression": {
+      "accuracy": 0.77,
+      "precision": 0.7595,
+      "recall": 0.77,
+      "f1_score": 0.762,
+      "roc_auc": 0.927,
+      "top1_accuracy": 0.77,
+      "top3_accuracy": 0.99
+    },
+    "Decision Tree": {
+      "accuracy": 0.97,
+      "precision": 0.9714,
+      "recall": 0.97,
+      "f1_score": 0.9694,
+      "roc_auc": 0.9892,
+      "top1_accuracy": 0.9675,
+      "top3_accuracy": 0.985
+    },
+    "Random Forest": {
+      "accuracy": 0.9275,
+      "precision": 0.9313,
+      "recall": 0.9275,
+      "f1_score": 0.9217,
+      "roc_auc": 0.9939,
+      "top1_accuracy": 0.9275,
+      "top3_accuracy": 0.995
+    },
+    "XGBoost": {
+      "accuracy": 0.9825,
+      "precision": 0.9825,
+      "recall": 0.9825,
+      "f1_score": 0.9824,
+      "roc_auc": 0.995,
+      "top1_accuracy": 0.9825,
+      "top3_accuracy": 0.995
+    }
+  },
+  "feature_importance": [
+    {
+      "feature": "condition",
+      "importance": 0.1622,
+      "rf_importance": 0.181,
+      "xgb_importance": 0.1435
+    },
+    {
+      "feature": "comorbidity_chf",
+      "importance": 0.1275,
+      "rf_importance": 0.1047,
+      "xgb_importance": 0.1502
+    },
+    {
+      "feature": "hba1c",
+      "importance": 0.1271,
+      "rf_importance": 0.1589,
+      "xgb_importance": 0.0952
+    },
+    {
+      "feature": "egfr",
+      "importance": 0.11,
+      "rf_importance": 0.1269,
+      "xgb_importance": 0.0931
+    },
+    {
+      "feature": "systolic_bp",
+      "importance": 0.0956,
+      "rf_importance": 0.1111,
+      "xgb_importance": 0.08
+    },
+    {
+      "feature": "prev_response",
+      "importance": 0.0867,
+      "rf_importance": 0.0629,
+      "xgb_importance": 0.1106
+    },
+    {
+      "feature": "allergy_acei",
+      "importance": 0.0748,
+      "rf_importance": 0.0256,
+      "xgb_importance": 0.1241
+    },
+    {
+      "feature": "comorbidity_asthma",
+      "importance": 0.0557,
+      "rf_importance": 0.037,
+      "xgb_importance": 0.0744
+    },
+    {
+      "feature": "prev_adverse",
+      "importance": 0.0407,
+      "rf_importance": 0.0284,
+      "xgb_importance": 0.053
+    },
+    {
+      "feature": "allergy_sulfa",
+      "importance": 0.0378,
+      "rf_importance": 0.0133,
+      "xgb_importance": 0.0622
+    },
+    {
+      "feature": "comorbidity_ckd",
+      "importance": 0.034,
+      "rf_importance": 0.068,
+      "xgb_importance": 0.0
+    },
+    {
+      "feature": "age",
+      "importance": 0.0211,
+      "rf_importance": 0.0357,
+      "xgb_importance": 0.0065
+    },
+    {
+      "feature": "disease_duration",
+      "importance": 0.0195,
+      "rf_importance": 0.035,
+      "xgb_importance": 0.004
+    },
+    {
+      "feature": "gender",
+      "importance": 0.0048,
+      "rf_importance": 0.0071,
+      "xgb_importance": 0.0025
+    },
+    {
+      "feature": "allergy_penicillin",
+      "importance": 0.0025,
+      "rf_importance": 0.0044,
+      "xgb_importance": 0.0007
+    }
+  ],
+  "feature_names": [
+    "age",
+    "gender",
+    "condition",
+    "disease_duration",
+    "egfr",
+    "hba1c",
+    "systolic_bp",
+    "comorbidity_ckd",
+    "comorbidity_chf",
+    "comorbidity_asthma",
+    "prev_response",
+    "allergy_sulfa",
+    "allergy_penicillin",
+    "allergy_acei",
+    "prev_adverse"
+  ],
+  "sample_counts": {
+    "train_samples": 1200,
+    "test_samples": 400,
+    "total_features": 15
+  }
+}

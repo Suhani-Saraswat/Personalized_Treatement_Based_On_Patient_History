@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediPersonal AI | Clinical Decision Support Platform</title>
+  <meta name="description" content="AI-assisted clinical decision-support system analyzing patient-specific historical records to rank personalized treatment options with a safety layer, explainable AI, and cloud document integration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/>
+          </svg>
+        </div>
+        <div class="brand-meta">
+          <h2>MediPersonal<span>AI</span></h2>
+          <small>Clinical Decision Support</small>
+        </div>
+      </div>
+
+      <div class="academic-badge">
+        <div class="badge-header">
+          <span class="badge-dot"></span>
+          <strong>Clinical Intelligence Portal</strong>
+        </div>
+        <p>Personalized Treatment &amp; CDSS</p>
+        <div class="badge-team">
+          <span>Evidence-Based AI Medicine</span>
+          <small>Clinical Decision Support Framework</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-page="dashboard" id="nav-dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Executive Dashboard</span>
+        </button>
+        <button class="nav-item" data-page="patients" id="nav-patients">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Patient Records</span>
+          <span class="nav-counter" id="navPatientCount">4</span>
+        </button>
+        <button class="nav-item" data-page="history" id="nav-history">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Clinical Timeline</span>
+        </button>
+        <button class="nav-item" data-page="recommend" id="nav-recommend">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>AI Recommendations</span>
+        </button>
+        <button class="nav-item" data-page="whatif" id="nav-whatif">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>What-If Simulator</span>
+          <span class="badge-pulse">Live</span>
+        </button>
+        <button class="nav-item" data-page="documents" id="nav-documents">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Cloud Document Hub</span>
+          <span class="nav-counter" id="navDocCount">0</span>
+        </button>
+        <button class="nav-item" data-page="evaluation" id="nav-evaluation">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Model Benchmarking</span>
+        </button>
+      </nav>
+
+      <div class="system-status-card">
+        <div class="status-indicator">
+          <span class="pulse-dot" id="serverPulseDot"></span>
+          <strong id="backendStatusText">ML Engine: Active</strong>
+        </div>
+        <p id="backendDetailText">FastAPI + XGBoost 3.4.1</p>
+        <div class="cloud-status-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+          <span>Cloud Storage: Connected</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="pageTitle">Executive Dashboard</h1>
+          <p id="pageSubtitle">AI-Assisted Clinical Decision Support System</p>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="model-badge" id="activeModelBadge">
+            <span class="model-label">Inference Model:</span>
+            <strong id="currentModelDisplay">XGBoost Classifier</strong>
+          </div>
+
+          <div class="doctor-profile">
+            <div class="doctor-avatar">DD</div>
+            <div class="doctor-info">
+              <b>Dr. Dema</b>
+              <span>Attending Physician · Clinical CDSS</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE 1: EXECUTIVE DASHBOARD -->
+      <section id="dashboard" class="page-view active">
+        <!-- Hero Section -->
+        <div class="hero-card">
+          <div class="hero-content">
+            <div class="hero-tag">PATIENT-CENTRIC CLINICAL AI · ADVANCED DECISION SUPPORT</div>
+            <h2>Personalize Treatment with the <em>Full Patient Story</em></h2>
+            <p>
+              Moving beyond generalized one-size-fits-all guidelines. MediPersonal AI analyzes multidimensional patient history—comorbidities, previous treatment responses, renal labs (eGFR), and drug allergies—to rank evidence-based treatment regimens paired with a hard safety filter and explainable feature attribution.
+            </p>
+            <div class="hero-buttons">
+              <button class="btn btn-primary" onclick="showPage('recommend')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Launch Treatment Recommendation
+              </button>
+              <button class="btn btn-secondary" onclick="showPage('whatif')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
+                Interactive What-If Simulator
+              </button>
+              <button class="btn btn-outline" onclick="showPage('documents')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Cloud Document Upload
+              </button>
+            </div>
+          </div>
+          <div class="hero-visualization">
+            <div class="radar-circle">
+              <div class="core-symbol">✚</div>
+              <div class="orbit-ring ring-1"></div>
+              <div class="orbit-ring ring-2"></div>
+              <div class="orbit-ring ring-3"></div>
+              <div class="floating-pill p1">eGFR 78 mL/min</div>
+              <div class="floating-pill p2">XGBoost 98.2%</div>
+              <div class="floating-pill p3">Safety Checks: OK</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span>Patient Cohort</span>
+              <div class="metric-icon teal">👥</div>
+            </div>
+            <strong id="dashTotalPatients">4</strong>
+            <small>Active clinical records</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              <span>Top-1 Accuracy</span>
+              <div class="metric-icon cyan">🎯</div>
+            </div>
+            <strong id="dashTop1Acc">98.25%</strong>
+            <small>XGBoost best model</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              <span>Safety Layer</span>
+              <div class="metric-icon emerald">🛡️</div>
+            </div>
+            <strong id="dashSafetyAlerts">100%</strong>
+            <small>Rule-based contraindication filter</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              <span>Cloud Storage</span>
+              <div class="metric-icon indigo">☁️</div>
+            </div>
+            <strong id="dashCloudDocs">0 Docs</strong>
+            <small>Secure medical vault</small>
+          </div>
+        </div>
+
+        <!-- System Architecture Flow -->
+        <div class="card card-flow">
+          <div class="card-header">
+            <div>
+              <h3>Clinical Decision Pipeline Flow</h3>
+              <p>End-to-end multi-tier data pipeline for personalized healthcare recommendation</p>
+            </div>
+            <span class="badge badge-primary">Human-in-the-Loop Architecture</span>
+          </div>
+          <div class="pipeline-flow-diagram">
+            <div class="flow-step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <strong>Patient History Intake</strong>
+                <span>Demographics, Labs, Prior Meds, Adverse Events</span>
+              </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <strong>Feature Engineering</strong>
+                <span>eGFR, HbA1c, CKD, Response Vectors</span>
+              </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <strong>ML Model Ranking</strong>
+                <span>XGBoost / Random Forest / Decision Tree</span>
+              </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step highlight-step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <strong>Safety Check Layer</strong>
+                <span>Allergy Match &amp; Contraindication Exclude</span>
+              </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="step-num">5</div>
+              <div class="step-body">
+                <strong>Explainable AI (SHAP)</strong>
+                <span>Local Feature Attribution &amp; Waterfall</span>
+              </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step final-step">
+              <div class="step-num">6</div>
+              <div class="step-body">
+                <strong>Doctor Decision</strong>
+                <span>Physician Review &amp; Prescribing Decision</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Patients & Rapid Assessment -->
+        <div class="grid-2-col">
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Clinical Profiles</h3>
+              <button class="btn btn-sm btn-outline" onclick="showPage('patients')">Manage All Patients →</button>
+            </div>
+            <div class="recent-patients-list" id="recentPatientsList">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Target Medical Disease Distribution</h3>
+              <span class="badge badge-neutral">Cohort Breakdown</span>
+            </div>
+            <div class="condition-distribution-bars" id="conditionDistributionBars">
+              <!-- Populated dynamically -->
+            </div>
+            <div class="synopsis-callout">
+              <strong>Clinical Domain Focus:</strong> Covers high-impact clinical areas: <em>Type 2 Diabetes, Hypertension, Asthma, and Cardiovascular Disease</em>, evaluating interactions between renal markers, comorbidities, and prior therapies.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 2: PATIENT RECORDS -->
+      <section id="patients" class="page-view">
+        <div class="section-header">
+          <div>
+            <h2>Patient Clinical Records</h2>
+            <p>Manage and inspect multi-feature patient histories, comorbidities, and laboratory parameters.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddPatientModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            + Register New Patient
+          </button>
+        </div>
+
+        <div class="filters-bar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="patientSearchInput" placeholder="Search by patient name, ID, condition, or comorbidity..." oninput="renderPatientsTable()">
+          </div>
+          <div class="filter-controls">
+            <select id="filterCondition" onchange="renderPatientsTable()">
+              <option value="">All Conditions</option>
+              <option value="Diabetes">Type 2 Diabetes</option>
+              <option value="Hypertension">Hypertension</option>
+              <option value="Asthma">Asthma</option>
+              <option value="Cardiovascular">Cardiovascular</option>
+            </select>
+            <select id="filterRisk" onchange="renderPatientsTable()">
+              <option value="">All Risk Profiles</option>
+              <option value="Review">Requires Allergy/Safety Review</option>
+              <option value="Standard">Standard Risk</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Patient Profile</th>
+                <th>Demographics</th>
+                <th>Primary Condition</th>
+                <th>Renal / Labs</th>
+                <th>Prior Medication &amp; Response</th>
+                <th>Allergies &amp; Comorbidity</th>
+                <th>Safety Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="patientTableBody">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PAGE 3: MEDICAL HISTORY TIMELINE -->
+      <section id="history" class="page-view">
+        <div class="section-header">
+          <div>
+            <h2>Clinical History &amp; Longitudinal Timeline</h2>
+            <p>Chronological patient evolution: previous diagnoses, drug trials, adverse events, and lab trajectories.</p>
+          </div>
+          <div class="patient-selector-wrap">
+            <label for="historyPatientSelect">Select Patient:</label>
+            <select id="historyPatientSelect" onchange="renderHistoryTimeline()"></select>
+          </div>
+        </div>
+
+        <div class="history-grid-layout">
+          <!-- Timeline Card -->
+          <div class="card timeline-card">
+            <div class="card-header">
+              <h3 id="timelinePatientName">Patient Longitudinal History</h3>
+              <span class="badge badge-teal">Chronological Events</span>
+            </div>
+            <div class="timeline-container" id="timelineContainer">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Comprehensive Profile Summary Card -->
+          <div class="card profile-detail-card">
+            <div class="card-header">
+              <h3>Comprehensive Clinical Profile</h3>
+              <button class="btn btn-sm btn-primary" onclick="jumpToRecommendationFromHistory()">Run AI Recommendation →</button>
+            </div>
+            <div class="profile-details-list" id="profileDetailsList">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 4: AI TREATMENT RECOMMENDATION -->
+      <section id="recommend" class="page-view">
+        <div class="section-header">
+          <div>
+            <h2>AI Treatment Recommendation Engine</h2>
+            <p>History-aware multi-model ranking coupled with 4-tier clinical safety rule validation and explainable AI.</p>
+          </div>
+          <div class="recommend-controls">
+            <div class="selector-item">
+              <label for="recommendPatientSelect">Active Patient:</label>
+              <select id="recommendPatientSelect" onchange="runRecommendation()"></select>
+            </div>
+            <div class="selector-item">
+              <label for="modelSelect">ML Algorithm:</label>
+              <select id="modelSelect" onchange="runRecommendation()">
+                <option value="XGBoost" selected>XGBoost (Recommended - 98.2% Acc)</option>
+                <option value="Random Forest">Random Forest (Ensemble Trees)</option>
+                <option value="Decision Tree">Decision Tree (Interpretable)</option>
+                <option value="Logistic Regression">Logistic Regression (Linear Baseline)</option>
+              </select>
+            </div>
+            <button class="btn btn-outline" onclick="printCDSReport()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Export Clinical CDS Report
+            </button>
+          </div>
+        </div>
+
+        <div id="recommendationContentArea">
+          <!-- Populated dynamically with Ranked Options, Safety Layer, SHAP Explainability -->
+        </div>
+      </section>
+
+      <!-- PAGE 5: INTERACTIVE WHAT-IF SIMULATOR -->
+      <section id="whatif" class="page-view">
+        <div class="section-header">
+          <div>
+            <h2>Step 7: Interactive What-If Sensitivity Simulator</h2>
+            <p>Dynamically alter patient parameters, biomarkers, and adverse histories to observe real-time treatment re-ranking.</p>
+          </div>
+          <div class="patient-selector-wrap">
+            <label for="whatifPatientSelect">Base Patient:</label>
+            <select id="whatifPatientSelect" onchange="loadWhatIfPatient()"></select>
+          </div>
+        </div>
+
+        <div class="whatif-layout">
+          <!-- Parameter Modifiers Panel -->
+          <div class="card whatif-controls-card">
+            <div class="card-header">
+              <h3>Dynamic Parameter Modifiers</h3>
+              <button class="btn btn-sm btn-outline" onclick="resetWhatIfParameters()">Reset to Baseline</button>
+            </div>
+
+            <!-- Lab Sliders -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>Renal Function (eGFR)</span>
+                <b id="valWhatifEgfr">78 mL/min</b>
+              </div>
+              <input type="range" id="sliderWhatifEgfr" min="15" max="120" step="1" value="78" oninput="updateWhatIfAnalysis()">
+              <div class="slider-limits">
+                <span>15 (Severe Failure)</span>
+                <span>60 (CKD Cutoff)</span>
+                <span>120 (Normal)</span>
+              </div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>Glycemic Control (HbA1c)</span>
+                <b id="valWhatifHba1c">8.4%</b>
+              </div>
+              <input type="range" id="sliderWhatifHba1c" min="5.0" max="13.0" step="0.1" value="8.4" oninput="updateWhatIfAnalysis()">
+              <div class="slider-limits">
+                <span>5.0% (Normal)</span>
+                <span>7.0% (Target)</span>
+                <span>13.0% (Severe)</span>
+              </div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>Systolic Blood Pressure</span>
+                <b id="valWhatifBp">138 mmHg</b>
+              </div>
+              <input type="range" id="sliderWhatifBp" min="90" max="200" step="1" value="138" oninput="updateWhatIfAnalysis()">
+              <div class="slider-limits">
+                <span>90 (Hypotension)</span>
+                <span>130 (Target)</span>
+                <span>200 (Crisis)</span>
+              </div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>Patient Age</span>
+                <b id="valWhatifAge">52 yrs</b>
+              </div>
+              <input type="range" id="sliderWhatifAge" min="18" max="90" step="1" value="52" oninput="updateWhatIfAnalysis()">
+            </div>
+
+            <!-- Interactive Clinical Toggles -->
+            <h4 class="subhead">Comorbidities &amp; Clinical Context</h4>
+            <div class="toggles-grid">
+              <label class="toggle-card">
+                <input type="checkbox" id="toggleWhatifCkd" onchange="updateWhatIfAnalysis()">
+                <span>Chronic Kidney Disease (CKD)</span>
+              </label>
+              <label class="toggle-card">
+                <input type="checkbox" id="toggleWhatifChf" onchange="updateWhatIfAnalysis()">
+                <span>Congestive Heart Failure (CHF)</span>
+              </label>
+              <label class="toggle-card">
+                <input type="checkbox" id="toggleWhatifAsthma" onchange="updateWhatIfAnalysis()">
+                <span>Asthma / Bronchospasm</span>
+              </label>
+            </div>
+
+            <h4 class="subhead">Allergy Flags &amp; Prior Responses</h4>
+            <div class="toggles-grid">
+              <label class="toggle-card">
+                <input type="checkbox" id="toggleWhatifSulfa" onchange="updateWhatIfAnalysis()">
+                <span>Sulfa Drug Allergy</span>
+              </label>
+              <label class="toggle-card">
+                <input type="checkbox" id="toggleWhatifAcei" onchange="updateWhatIfAnalysis()">
+                <span>ACE-Inhibitor Allergy</span>
+              </label>
+              <label class="toggle-card">
+                <input type="checkbox" id="toggleWhatifPenicillin" onchange="updateWhatIfAnalysis()">
+                <span>Penicillin Allergy</span>
+              </label>
+            </div>
+
+            <div class="form-row-select" style="margin-top:15px">
+              <label>Previous Treatment Response:</label>
+              <select id="selectWhatifResponse" onchange="updateWhatIfAnalysis()">
+                <option value="Good">Good Therapeutic Response</option>
+                <option value="Moderate">Moderate / Partial Response</option>
+                <option value="Poor">Poor Response / Drug Resistance</option>
+                <option value="Adverse reaction">Adverse Drug Event / Toxicity</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Real-Time Re-ranking Diff Output -->
+          <div class="card whatif-results-card">
+            <div class="card-header">
+              <h3>Dynamic Re-Ranking &amp; Sensitivity Diff</h3>
+              <span class="badge badge-pulse">Live Recalculation</span>
+            </div>
+            <p class="whatif-intro-text">
+              Notice how modifying <strong>eGFR &lt; 30 mL/min</strong> instantly disqualifies Metformin due to lactic acidosis risk, or adding <strong>Sulfa Allergy</strong> excludes Sulfonylureas while elevating renal-protective SGLT2 inhibitors and GLP-1 receptor agonists.
+            </p>
+
+            <div class="whatif-diff-table" id="whatifDiffResults">
+              <!-- Populated dynamically -->
+            </div>
+
+            <div class="card whatif-explanation-box" id="whatifExplanationBox">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 6: CLOUD DOCUMENT HUB -->
+      <section id="documents" class="page-view">
+        <div class="section-header">
+          <div>
+            <h2>Cloud Document Hub &amp; Medical OCR Extractor</h2>
+            <p>Upload medical reports, lab slips, and discharge summaries with Cloudinary integration &amp; clinical parameter extraction.</p>
+          </div>
+          <div class="cloud-indicator-box">
+            <div class="cloud-badge active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+              <span>Cloud Storage Provider: <strong>Cloudinary / Secure S3 Vault</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cloud Upload Drag and Drop Zone -->
+        <div class="card upload-dropzone-card" id="dropZone">
+          <div class="dropzone-content">
+            <div class="upload-pulse-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <h3>Drag &amp; Drop Medical Reports to Cloud Vault</h3>
+            <p>Supports PDF, PNG, JPG, and Medical EHR Summaries. Automated clinical biomarker OCR parsing upon upload.</p>
+            
+            <div class="upload-form-inline">
+              <label class="btn btn-primary file-input-label">
+                <span>Browse Files...</span>
+                <input type="file" id="medicalFileInput" accept=".pdf,.png,.jpg,.jpeg,.txt" onchange="handleFileSelected(event)">
+              </label>
+              
+              <div class="select-inline-wrap">
+                <select id="uploadDocPatient">
+                  <!-- Populated dynamically -->
+                </select>
+                <select id="uploadDocType">
+                  <option value="Comprehensive Metabolic Lab">Comprehensive Metabolic Lab</option>
+                  <option value="Cardiology Discharge Summary">Cardiology Discharge Summary</option>
+                  <option value="Renal Function Report">Renal Function Report</option>
+                  <option value="Endocrinology Follow-Up">Endocrinology Follow-Up</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Quick Demo Upload Buttons -->
+            <div class="quick-demo-uploads">
+              <small>Or load pre-configured clinical test documents:</small>
+              <div class="demo-buttons">
+                <button class="btn btn-sm btn-outline" onclick="loadSampleDoc('nephropathy')">📄 Load Lab Report: Diabetic Nephropathy (eGFR 38, HbA1c 8.8%)</button>
+                <button class="btn btn-sm btn-outline" onclick="loadSampleDoc('hypertension')">📄 Load Cardiology Summary (BP 164/98, ACEi Angioedema)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Uploaded Document Vault & OCR Extraction Drawer -->
+        <div class="grid-2-col">
+          <!-- Uploaded Documents List -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Secure Cloud Storage Vault (<span id="vaultCountDisplay">0</span> Files)</h3>
+              <span class="badge badge-neutral">Encrypted SHA-256 Storage</span>
+            </div>
+            <div class="documents-vault-list" id="documentsVaultList">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Document OCR Extraction & Patient Record Sync -->
+          <div class="card" id="ocrExtractionPanel">
+            <div class="card-header">
+              <h3>Automated Medical Entity Extraction</h3>
+              <span class="badge badge-teal">Intelligent Parser</span>
+            </div>
+            <div id="ocrContentContainer">
+              <div class="empty-ocr-state">
+                <div class="empty-icon">🔬</div>
+                <h4>Select or Upload a Medical Report</h4>
+                <p>The parser will automatically identify critical biomarkers (eGFR, HbA1c, Creatinine, Blood Pressure, Allergies) and allow one-click synchronization into the patient record.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 7: MODEL BENCHMARKING & EVALUATION -->
+      <section id="evaluation" class="page-view">
+        <div class="section-header">
+          <div>
+            <h2>Machine Learning Model Benchmarking &amp; Evaluation</h2>
+            <p>Comparative empirical performance analysis across Logistic Regression, Decision Tree, Random Forest, and XGBoost.</p>
+          </div>
+          <button class="btn btn-outline" onclick="reRunEvaluationPipeline()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Refresh Benchmark Cache
+          </button>
+        </div>
+
+        <!-- Comparison Matrix Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Algorithm Evaluation Matrix</h3>
+            <span class="badge badge-emerald">Evaluated on 400 Test Cohorts</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table benchmark-table">
+              <thead>
+                <tr>
+                  <th>Algorithm</th>
+                  <th>Model Type</th>
+                  <th>Classification Accuracy</th>
+                  <th>Weighted Precision</th>
+                  <th>Weighted Recall</th>
+                  <th>Weighted F1-Score</th>
+                  <th>ROC-AUC Score</th>
+                  <th>Top-1 Accuracy</th>
+                  <th>Top-3 Accuracy</th>
+                  <th>Recommendation Rank</th>
+                </tr>
+              </thead>
+              <tbody id="benchmarkTableBody">
+                <!-- Populated dynamically from API / cache -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Visual Comparisons Grid -->
+        <div class="grid-2-col" style="margin-top:20px">
+          <!-- Accuracy / Top-K Comparison Chart -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Model Metric Comparison Bars</h3>
+              <span class="badge badge-teal">Accuracy &amp; ROC-AUC</span>
+            </div>
+            <div class="benchmark-bars-container" id="benchmarkBarsContainer">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Feature Importance Leaderboard -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Global Feature Importance Leaderboard</h3>
+              <span class="badge badge-indigo">Ensemble Tree Attribution</span>
+            </div>
+            <p class="small-desc">
+              Determines which patient historical dimensions most significantly influence personalized treatment ranking according to trained XGBoost &amp; Random Forest weights.
+            </p>
+            <div class="feature-importance-bars" id="featureImportanceBars">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Academic Clinical Research Alignment -->
+        <div class="card" style="margin-top:20px">
+          <div class="card-header">
+            <h3>Clinical Literature &amp; Research Gap Integration</h3>
+            <span class="badge badge-neutral">Evidence-Based Foundation</span>
+          </div>
+          <div class="research-papers-grid">
+            <div class="paper-box">
+              <strong>Research Paper 1 (PMC / NLM)</strong>
+              <em>Clinical Decision Support for Genetically Guided Personalized Medicine</em>
+              <p>Highlights integrating complex individualized patient histories into clinical workflows rather than generic protocols.</p>
+            </div>
+            <div class="paper-box">
+              <strong>Research Paper 2 (PMC / NLM)</strong>
+              <em>The Use of Precision Medicine to Support Clinical Decisions</em>
+              <p>Demonstrates combining Patient History + Clinical Information + Computational Analysis → Personalized Decision Support.</p>
+            </div>
+            <div class="paper-box">
+              <strong>Research Paper 3 (PMC / NLM)</strong>
+              <em>Precision Medicine CDSS: A Systematic Review</em>
+              <p>Addresses challenges in clinical usability, safety contraindication safeguards, and explainable AI.</p>
+            </div>
+            <div class="paper-box highlight-box">
+              <strong>Research Gap Solved by MediPersonal AI</strong>
+              <p>While most academic ML projects predict only disease presence, this platform addresses the critical clinical gap: <strong>Treatment Recommendation &amp; Safety Ranking based on individual medical history</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL: ADD / REGISTER PATIENT -->
+  <div class="modal-overlay" id="addPatientModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <h3>Register New Patient Profile</h3>
+          <p>Collect structured medical history, demographics, and clinical laboratory values.</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeAddPatientModal()">×</button>
+      </div>
+      <form id="addPatientForm" onsubmit="submitNewPatient(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="newPtName">Full Name *</label>
+            <input type="text" id="newPtName" required placeholder="e.g. Vikram Malhotra">
+          </div>
+          <div class="form-group">
+            <label for="newPtAge">Age *</label>
+            <input type="number" id="newPtAge" min="1" max="120" required value="54">
+          </div>
+          <div class="form-group">
+            <label for="newPtGender">Gender *</label>
+            <select id="newPtGender">
+              <option value="Female">Female</option>
+              <option value="Male" selected>Male</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="newPtCondition">Primary Condition *</label>
+            <select id="newPtCondition">
+              <option value="Type 2 Diabetes" selected>Type 2 Diabetes</option>
+              <option value="Hypertension">Hypertension</option>
+              <option value="Asthma">Asthma</option>
+              <option value="Cardiovascular Disease">Cardiovascular Disease</option>
+            </select>
+          </div>
+
+          <!-- Clinical Labs -->
+          <div class="form-group">
+            <label for="newPtEgfr">Renal Function eGFR (mL/min) *</label>
+            <input type="number" id="newPtEgfr" step="0.1" min="5" max="150" value="72.0" placeholder="e.g. 72">
+          </div>
+          <div class="form-group">
+            <label for="newPtHba1c">HbA1c (%)</label>
+            <input type="number" id="newPtHba1c" step="0.1" min="4.0" max="18.0" value="8.2" placeholder="e.g. 8.2">
+          </div>
+          <div class="form-group">
+            <label for="newPtBp">Systolic Blood Pressure (mmHg)</label>
+            <input type="number" id="newPtBp" min="70" max="250" value="136" placeholder="e.g. 136">
+          </div>
+          <div class="form-group">
+            <label for="newPtCreatinine">Serum Creatinine (mg/dL)</label>
+            <input type="number" id="newPtCreatinine" step="0.1" min="0.2" max="10" value="1.1" placeholder="e.g. 1.1">
+          </div>
+
+          <!-- Medical History & Comorbidities -->
+          <div class="form-group full-width">
+            <label for="newPtComorbidity">Comorbidities (comma-separated)</label>
+            <input type="text" id="newPtComorbidity" placeholder="e.g. Chronic Kidney Disease, Hypertension, Dyslipidemia">
+          </div>
+          <div class="form-group">
+            <label for="newPtAllergy">Known Drug Allergies</label>
+            <input type="text" id="newPtAllergy" placeholder="e.g. Sulfa drugs, Penicillin, or None">
+          </div>
+          <div class="form-group">
+            <label for="newPtMedication">Previous Medication</label>
+            <input type="text" id="newPtMedication" placeholder="e.g. Metformin 500mg, Glimepiride 2mg">
+          </div>
+          <div class="form-group">
+            <label for="newPtResponse">Prior Treatment Response</label>
+            <select id="newPtResponse">
+              <option value="Good">Good Response</option>
+              <option value="Moderate">Moderate / Partial</option>
+              <option value="Poor" selected>Poor Response</option>
+              <option value="Adverse reaction">Adverse Reaction Recorded</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="newPtAdverse">Prior Adverse Reaction Details</label>
+            <input type="text" id="newPtAdverse" placeholder="e.g. Severe hypoglycemia, Cough, Angioedema, or None">
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeAddPatientModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Patient Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: DOCUMENT PREVIEW MODAL -->
+  <div class="modal-overlay" id="docPreviewModal">
+    <div class="modal-container doc-preview-container">
+      <div class="modal-header">
+        <div>
+          <h3 id="docPreviewTitle">Medical Document Inspection</h3>
+          <p id="docPreviewMeta">Secure Cloud Storage Viewer</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeDocPreviewModal()">×</button>
+      </div>
+      <div class="doc-preview-body" id="docPreviewContent">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- PRINTABLE CLINICAL DECISION SUPPORT SUMMARY CONTAINER (Hidden on Screen, visible on Print) -->
+  <div id="printCDSContainer" class="print-cds-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
