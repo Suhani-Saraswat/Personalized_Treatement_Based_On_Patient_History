@@ -5,7 +5,7 @@
  * Project Guide: Dr. Anshul Tickoo
  */
 
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = window.location.protocol === "file:" ? "http://localhost:8000/api" : "/api";
 let isBackendConnected = false;
 
 // Seed Patient Cohort reflecting academic synopsis specifications
@@ -1427,12 +1427,700 @@ function printCDSReport() {
   window.print();
 }
 
+// ==========================================================================
+// Authentication & Role-Based Access Control (Dr. Demo & Patient Portals)
+// ==========================================================================
+let currentAuthUser = JSON.parse(sessionStorage.getItem("mp_auth_user") || "null");
+let activePatientTab = "overview";
+
+function switchAuthTab(tab) {
+  const btnDoc = $("tabBtnDoctor");
+  const btnPt = $("tabBtnPatient");
+  const btnReg = $("tabBtnRegister");
+
+  if (btnDoc) btnDoc.classList.toggle("active", tab === "doctor");
+  if (btnPt) btnPt.classList.toggle("active", tab === "patient");
+  if (btnReg) btnReg.classList.toggle("active", tab === "register");
+
+  const pDoc = $("doctorAuthPanel");
+  const pPt = $("patientAuthPanel");
+  const pReg = $("registerAuthPanel");
+
+  if (pDoc) pDoc.style.display = tab === "doctor" ? "block" : "none";
+  if (pPt) pPt.style.display = tab === "patient" ? "block" : "none";
+  if (pReg) pReg.style.display = tab === "register" ? "block" : "none";
+
+  // Reset errors
+  if ($("doctorLoginError")) $("doctorLoginError").style.display = "none";
+  if ($("patientLoginError")) $("patientLoginError").style.display = "none";
+  if ($("patientRegisterError")) $("patientRegisterError").style.display = "none";
+}
+
+function quickLoginDoctor() {
+  currentAuthUser = {
+    role: "doctor",
+    name: "Dr. Demo",
+    title: "Attending Physician · Clinical CDSS",
+    avatar: "DD",
+    permissions: ["all", "cdss_prescribe", "benchmarking", "what_if_simulator", "cloud_vault_manage"]
+  };
+  sessionStorage.setItem("mp_auth_user", JSON.stringify(currentAuthUser));
+  showToast("Welcome back, Dr. Demo! Physician portal authenticated.", "success");
+  renderAuthInterface();
+}
+
+async function handleDoctorLogin(e) {
+  e.preventDefault();
+  const u = ($("docUsername")?.value || "").trim().toLowerCase();
+  const p = ($("docPassword")?.value || "").trim();
+  const errBox = $("doctorLoginError");
+
+  // Valid credentials for Dr. Demo
+  if (["drdemo", "dr.demo", "demo", "doctor"].includes(u) && ["demo123", "password123", "admin", "drdemo"].includes(p)) {
+    quickLoginDoctor();
+  } else {
+    if (errBox) {
+      errBox.textContent = "Invalid physician credentials. Please verify your username and password.";
+      errBox.style.display = "flex";
+    }
+  }
+}
+
+function quickLoginPatient(patientId) {
+  const pt = patients.find(p => p.id.toUpperCase() === patientId.toUpperCase());
+  if (!pt) {
+    showToast("Patient record not found.", "error");
+    return;
+  }
+  currentAuthUser = {
+    role: "patient",
+    patientId: pt.id,
+    name: pt.name,
+    condition: pt.condition,
+    permissions: ["personal_view", "personal_add", "personal_delete"]
+  };
+  sessionStorage.setItem("mp_auth_user", JSON.stringify(currentAuthUser));
+  showToast(`Welcome, ${pt.name}! Authenticated to Personal Health Portal.`, "success");
+  renderAuthInterface();
+}
+
+function handlePatientLogin(e) {
+  e.preventDefault();
+  const input = ($("patientLoginId")?.value || "").trim().toLowerCase();
+  const pass = ($("patientPassword")?.value || "").trim();
+  const errBox = $("patientLoginError");
+
+  if (!input || !pass) {
+    if (errBox) {
+      errBox.textContent = "Please enter both your Patient ID / Name and password.";
+      errBox.style.display = "flex";
+    }
+    return;
+  }
+
+  // Match by patient ID or lowercase name
+  const pt = patients.find(p => 
+    p.id.toLowerCase() === input || 
+    p.name.toLowerCase().includes(input)
+  );
+
+  if (pt) {
+    const validPass = pt.password || "patient123";
+    if (pass === validPass || pass === "patient123" || pass === "demo123" || pass === "password123") {
+      quickLoginPatient(pt.id);
+      return;
+    } else {
+      if (errBox) {
+        errBox.textContent = "Incorrect password. Please verify your password and try again.";
+        errBox.style.display = "flex";
+      }
+      return;
+    }
+  }
+
+  if (errBox) {
+    errBox.textContent = "Patient account not found. Please verify your Patient ID (e.g. P001) or full name.";
+    errBox.style.display = "flex";
+  }
+}
+
+function handleRegisterPatient(e) {
+  e.preventDefault();
+  const name = $("regPtName").value.trim();
+  const age = Number($("regPtAge").value);
+  const gender = $("regPtGender").value;
+  const condition = $("regPtCondition").value;
+  const egfr = Number($("regPtEgfr").value) || 75.0;
+  const hba1c = Number($("regPtHba1c").value) || 7.8;
+  const bp = Number($("regPtBp").value) || 132;
+  const allergy = $("regPtAllergy").value.trim() || "None";
+  const password = $("regPtPassword").value.trim() || "patient123";
+
+  const newId = "P" + String(patients.length + 1).padStart(3, "0");
+  const newPt = {
+    id: newId,
+    name,
+    age,
+    gender,
+    condition,
+    disease_duration: 1.0,
+    egfr,
+    hba1c,
+    systolic_bp: bp,
+    creatinine: 1.0,
+    potassium: 4.2,
+    comorbidity: "None",
+    allergy,
+    medication: "Initial Assessment",
+    response: "Good",
+    previous_adverse: "None",
+    password,
+    history: [
+      {
+        id: "EVT-" + Date.now(),
+        year: new Date().getFullYear().toString(),
+        category: "Registration",
+        title: "Patient Self-Registered in Portal",
+        desc: `Personal health profile established. Diagnosed with ${condition}. Baseline biomarkers recorded.`
+      }
+    ]
+  };
+
+  patients.push(newPt);
+  saveState();
+  showToast(`Account created for ${newPt.name} (${newId})!`, "success");
+  quickLoginPatient(newId);
+}
+
+function logoutUser() {
+  currentAuthUser = null;
+  sessionStorage.removeItem("mp_auth_user");
+  renderAuthInterface();
+  showToast("You have been signed out.", "success");
+}
+
+function renderAuthInterface() {
+  const authEl = $("authPortal");
+  const adminEl = $("adminAppLayout");
+  const patientEl = $("patientAppLayout");
+
+  if (!currentAuthUser) {
+    if (authEl) authEl.style.display = "flex";
+    if (adminEl) adminEl.style.display = "none";
+    if (patientEl) patientEl.style.display = "none";
+    switchAuthTab("doctor");
+    return;
+  }
+
+  if (currentAuthUser.role === "doctor") {
+    if (authEl) authEl.style.display = "none";
+    if (patientEl) patientEl.style.display = "none";
+    if (adminEl) adminEl.style.display = "flex";
+
+    // Refresh Dr. Demo admin view
+    populateAllPatientSelectors();
+    renderDashboard();
+    showPage("dashboard");
+  } else if (currentAuthUser.role === "patient") {
+    if (authEl) authEl.style.display = "none";
+    if (adminEl) adminEl.style.display = "none";
+    if (patientEl) patientEl.style.display = "flex";
+
+    renderPatientPortal();
+  }
+}
+
+// ==========================================================================
+// Patient Portal Rendering & Add / Delete Operations (No Other Permissions)
+// ==========================================================================
+function getCurrentPatient() {
+  if (!currentAuthUser || currentAuthUser.role !== "patient") return null;
+  return patients.find(p => p.id === currentAuthUser.patientId) || patients[0];
+}
+
+function renderPatientPortal() {
+  const p = getCurrentPatient();
+  if (!p) return;
+
+  // Header display
+  if ($("patientDisplayName")) $("patientDisplayName").textContent = p.name;
+  if ($("patientDisplayId")) $("patientDisplayId").textContent = `ID: ${p.id} · ${p.condition} · Age ${p.age}y / ${p.gender}`;
+  
+  const initials = p.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+  if ($("patientAvatarInitial")) $("patientAvatarInitial").textContent = initials || "PT";
+
+  // Render current tab view
+  switchPatientTab(activePatientTab || "overview");
+}
+
+function switchPatientTab(tabId) {
+  activePatientTab = tabId;
+  const tabs = ["overview", "timeline", "documents", "careplan"];
+  tabs.forEach(t => {
+    const btn = $(`ptTabBtn-${t}`);
+    const view = $(`patientView-${t}`);
+    if (btn) btn.classList.toggle("active", t === tabId);
+    if (view) view.classList.toggle("active", t === tabId);
+  });
+
+  if (tabId === "overview") renderPatientOverview();
+  if (tabId === "timeline") renderPatientTimeline();
+  if (tabId === "documents") renderPatientDocs();
+  if (tabId === "careplan") renderPatientCarePlan();
+}
+
+function renderPatientOverview() {
+  const p = getCurrentPatient();
+  if (!p) return;
+
+  // Vitals Grid
+  const egfrStatus = p.egfr >= 60 ? "Preserved / Normal" : p.egfr >= 30 ? "Moderate CKD" : "Severe Impairment";
+  const egfrColor = p.egfr >= 60 ? "#10b981" : p.egfr >= 30 ? "#f59e0b" : "#f43f5e";
+
+  const vitalsEl = $("patientVitalsGrid");
+  if (vitalsEl) {
+    vitalsEl.innerHTML = `
+      <div class="vital-metric-card">
+        <div class="vmc-header">
+          <span>Renal Function (eGFR)</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${egfrColor}" stroke-width="2">
+            <path d="M12 2v20M2 12h20"/>
+          </svg>
+        </div>
+        <div>
+          <span class="vmc-value" style="color:${egfrColor}">${p.egfr || 85}</span>
+          <span class="vmc-unit">mL/min</span>
+        </div>
+        <div class="vmc-sub" style="color:${egfrColor}">
+          <span>● ${egfrStatus}</span>
+        </div>
+      </div>
+
+      <div class="vital-metric-card">
+        <div class="vmc-header">
+          <span>Glycemic Marker (HbA1c)</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div>
+          <span class="vmc-value">${p.hba1c || 7.5}</span>
+          <span class="vmc-unit">%</span>
+        </div>
+        <div class="vmc-sub">
+          <span>Standard Clinical Target &lt; 7.0%</span>
+        </div>
+      </div>
+
+      <div class="vital-metric-card">
+        <div class="vmc-header">
+          <span>Systolic Blood Pressure</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="vmc-value">${p.systolic_bp || 135}</span>
+          <span class="vmc-unit">mmHg</span>
+        </div>
+        <div class="vmc-sub">
+          <span>Stage 1 Threshold: 130 mmHg</span>
+        </div>
+      </div>
+
+      <div class="vital-metric-card">
+        <div class="vmc-header">
+          <span>Serum Creatinine &amp; History</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+        </div>
+        <div>
+          <span class="vmc-value">${p.creatinine || 1.0}</span>
+          <span class="vmc-unit">mg/dL</span>
+        </div>
+        <div class="vmc-sub">
+          <span>Diagnosed: ${p.disease_duration || 3} yrs history</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Active Medications
+  const medEl = $("patientActiveMedCard");
+  if (medEl) {
+    medEl.innerHTML = `
+      <div style="padding:14px 0">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <strong style="font-size:16px;color:#fff">${p.medication || "None currently documented"}</strong>
+          <span class="badge ${p.response === 'Adverse reaction' ? 'badge-rose' : p.response === 'Poor' ? 'badge-amber' : 'badge-emerald'}">
+            Response: ${p.response || "Stable"}
+          </span>
+        </div>
+        <p style="font-size:12.5px;color:#94a3b8;line-height:1.5">
+          Documented adverse reaction history: <b style="color:${p.previous_adverse && p.previous_adverse !== 'None' ? '#f43f5e' : '#10b981'}">
+            ${p.previous_adverse || "None"}
+          </b>
+        </p>
+        <div style="margin-top:14px;padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid var(--border-color);border-radius:8px">
+          <small style="color:#64748b;display:block">Prescribing Clinician:</small>
+          <span style="font-size:12px;color:#cbd5e1">Monitored by <b>Dr. Demo</b> (Attending Physician · Clinical CDSS)</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Allergies & Comorbidities
+  const allergyEl = $("patientAllergyCard");
+  if (allergyEl) {
+    allergyEl.innerHTML = `
+      <div style="padding:14px 0">
+        <div style="margin-bottom:14px">
+          <span style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase">Documented Allergies:</span>
+          <div style="margin-top:4px">
+            <span class="badge ${p.allergy && p.allergy !== 'None' ? 'badge-rose' : 'badge-emerald'}" style="font-size:13px;padding:5px 12px">
+              ${p.allergy || "No Known Drug Allergies (NKDA)"}
+            </span>
+          </div>
+        </div>
+        <div>
+          <span style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase">Co-existing Comorbidities:</span>
+          <p style="font-size:13px;color:#fff;margin-top:4px">
+            ${p.comorbidity || "None documented"}
+          </p>
+        </div>
+        <div style="margin-top:16px;padding:10px 14px;background:rgba(244,63,94,0.08);border:1px solid var(--rose-border);border-radius:8px">
+          <small style="color:#fda4af;font-size:11.5px">
+            Safety Guard: The clinical safety layer automatically screens every treatment against your known allergies and contraindications.
+          </small>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function renderPatientTimeline() {
+  const p = getCurrentPatient();
+  if (!p) return;
+
+  const history = p.history || [];
+  if ($("ptTimelineCount")) $("ptTimelineCount").textContent = history.length;
+
+  const container = $("patientTimelineList");
+  if (!container) return;
+
+  if (!history.length) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:48px 20px;background:var(--bg-card);border-radius:var(--radius-md);border:1px dashed var(--border-light)">
+        <p style="color:#94a3b8;font-size:14px">No medical history events recorded yet in your personal health timeline.</p>
+        <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openPatientAddEventModal()">+ Add Your First Event</button>
+      </div>
+    `;
+    return;
+  }
+
+  // Reverse copy so newest appears on top
+  container.innerHTML = history.slice().reverse().map((item, originalIdx) => {
+    const realIndex = history.length - 1 - originalIdx;
+    const cat = item.category || "Clinical History";
+    return `
+      <div class="patient-timeline-card">
+        <div class="ptc-main">
+          <div class="ptc-meta">
+            <span class="ptc-year">${item.year || "2026"}</span>
+            <span class="badge badge-teal">${cat}</span>
+          </div>
+          <div class="ptc-title">${item.title}</div>
+          <div class="ptc-desc">${item.desc}</div>
+        </div>
+        <div>
+          <button class="btn-delete" onclick="deletePatientEvent(${realIndex})" title="Delete this entry from your personal health record">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function openPatientAddEventModal() {
+  $("patientAddEventModal").classList.add("show");
+  $("ptNewEventYear").value = new Date().getFullYear().toString();
+  $("ptNewEventTitle").focus();
+}
+
+function closePatientAddEventModal() {
+  $("patientAddEventModal").classList.remove("show");
+}
+
+function submitPatientAddEvent(e) {
+  e.preventDefault();
+  const p = getCurrentPatient();
+  if (!p) return;
+
+  const year = $("ptNewEventYear").value.trim();
+  const cat = $("ptNewEventCategory").value;
+  const title = $("ptNewEventTitle").value.trim();
+  const desc = $("ptNewEventDesc").value.trim();
+
+  if (!p.history) p.history = [];
+  p.history.push({
+    id: "EVT-" + Date.now(),
+    year,
+    category: cat,
+    title,
+    desc
+  });
+
+  saveState();
+  closePatientAddEventModal();
+  e.target.reset();
+  renderPatientTimeline();
+  showToast("Personal health event successfully added to your timeline!", "success");
+}
+
+function deletePatientEvent(index) {
+  const p = getCurrentPatient();
+  if (!p || !p.history || !p.history[index]) return;
+
+  const item = p.history[index];
+  const confirmDelete = confirm(`Are you sure you want to permanently delete this event: "${item.title}"?`);
+  if (!confirmDelete) return;
+
+  p.history.splice(index, 1);
+  saveState();
+  renderPatientTimeline();
+  showToast("Medical event deleted from your personal timeline.", "success");
+}
+
+function renderPatientDocs() {
+  const p = getCurrentPatient();
+  if (!p) return;
+
+  const myDocs = cloudDocs.filter(d => d.patient_id === p.id);
+  if ($("ptDocCount")) $("ptDocCount").textContent = myDocs.length;
+
+  const container = $("patientDocsGrid");
+  if (!container) return;
+
+  if (!myDocs.length) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align:center;padding:48px 20px;background:var(--bg-card);border-radius:var(--radius-md);border:1px dashed var(--border-light)">
+        <p style="color:#94a3b8;font-size:14px">No documents in your personal cloud vault yet.</p>
+        <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openPatientAddDocModal()">+ Upload Your First Document</button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = myDocs.map(doc => {
+    const ent = doc.extracted_entities || {};
+    const tags = [];
+    if (ent.egfr) tags.push(`eGFR: ${ent.egfr} mL/min`);
+    if (ent.hba1c) tags.push(`HbA1c: ${ent.hba1c}%`);
+    if (ent.systolic_bp) tags.push(`BP: ${ent.systolic_bp}/${ent.diastolic_bp || 80}`);
+    if (ent.creatinine) tags.push(`Creatinine: ${ent.creatinine} mg/dL`);
+
+    return `
+      <div class="patient-doc-card">
+        <div>
+          <div class="pdc-header">
+            <div class="pdc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div class="pdc-title">${doc.name}</div>
+              <div class="pdc-meta">${doc.type} · ${doc.size || '118 KB'} · ${doc.uploaded_at || 'Recently'}</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <span style="font-size:10px;text-transform:uppercase;color:#64748b;font-weight:700">SHA-256 Cloud Vault Hash:</span>
+            <code style="font-size:11px;color:#06b6d4;display:block;margin-top:2px">${doc.hash || 'e3b0c44298fc1c14'}</code>
+          </div>
+
+          ${tags.length ? `
+            <div style="margin-top:12px">
+              <span style="font-size:10px;text-transform:uppercase;color:#64748b;font-weight:700">OCR Extracted Biomarkers:</span>
+              <div class="pdc-tags" style="margin-top:4px">
+                ${tags.map(t => `<span class="pdc-tag">${t}</span>`).join("")}
+              </div>
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="pdc-actions">
+          <button class="btn btn-sm btn-outline" onclick="viewDocModal('${doc.id}')">View Details</button>
+          <button class="btn-delete" onclick="deletePatientDoc('${doc.id}')" title="Delete document from your vault">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function openPatientAddDocModal() {
+  $("patientAddDocModal").classList.add("show");
+  $("ptNewDocName").value = `Medical_Report_${new Date().toISOString().slice(0, 10)}.pdf`;
+  $("ptNewDocContent").value = "";
+}
+
+function closePatientAddDocModal() {
+  $("patientAddDocModal").classList.remove("show");
+}
+
+function fillPatientDocSample() {
+  const p = getCurrentPatient();
+  $("ptNewDocName").value = `${(p ? p.name.replace(/ /g, "_") : "Patient")}_Lab_Panel_2026.pdf`;
+  $("ptNewDocContent").value = `METABOLIC LAB PANEL REPORT\nPatient Name: ${p ? p.name : 'Patient'}\nPrimary Condition: ${p ? p.condition : 'Diabetes'}\neGFR: ${p ? p.egfr : '78.0'} mL/min/1.73m2\nHbA1c: ${p ? p.hba1c : '8.2'}%\nBlood Pressure: ${p ? p.systolic_bp : '136'}/88 mmHg\nSerum Creatinine: ${p ? p.creatinine : '1.0'} mg/dL\nAllergies: ${p ? p.allergy : 'None'}\nClinical Interpretation: Consistent with longitudinal EHR findings.`;
+}
+
+function submitPatientAddDoc(e) {
+  e.preventDefault();
+  const p = getCurrentPatient();
+  if (!p) return;
+
+  const docName = $("ptNewDocName").value.trim();
+  const docType = $("ptNewDocType").value;
+  const content = $("ptNewDocContent").value.trim();
+
+  // Extract entities using existing client parser
+  const entities = parseMedicalText(content, docName);
+  const hash = Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
+  const newId = `DOC-${String(cloudDocs.length + 1).padStart(4, "0")}`;
+
+  const newDoc = {
+    id: newId,
+    name: docName,
+    type: docType,
+    patient_id: p.id,
+    patient_name: p.name,
+    size: `${(content.length * 0.12).toFixed(1)} KB`,
+    hash: hash,
+    cloud_url: `https://res.cloudinary.com/medipersonal-ai/raw/upload/v1712/${hash}_${docName}`,
+    cloud_provider: "Cloudinary/Medical-Vault",
+    uploaded_at: new Date().toISOString().replace("T", " ").slice(0, 19),
+    status: "Verified Personal Cloud Storage",
+    extracted_entities: entities
+  };
+
+  cloudDocs.push(newDoc);
+  saveState();
+  closePatientAddDocModal();
+  e.target.reset();
+  renderPatientDocs();
+  showToast("Document successfully uploaded to your personal vault!", "success");
+}
+
+function deletePatientDoc(docId) {
+  const doc = cloudDocs.find(d => d.id === docId);
+  if (!doc) return;
+
+  const confirmDelete = confirm(`Are you sure you want to permanently delete document "${doc.name}" from your cloud vault?`);
+  if (!confirmDelete) return;
+
+  cloudDocs = cloudDocs.filter(d => d.id !== docId);
+  saveState();
+  renderPatientDocs();
+  showToast("Document deleted from your vault.", "success");
+}
+
+function renderPatientCarePlan() {
+  const p = getCurrentPatient();
+  if (!p) return;
+
+  // Use the synopsis client recommendation engine
+  const rec = computeClientRecommendation(p, "XGBoost");
+  const topTrt = rec.ranked_options[0]?.treatment || "Personalized Regimen";
+  const topScore = rec.ranked_options[0]?.score || 88;
+
+  const container = $("patientCarePlanContent");
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header">
+        <h3>Personalized Treatment &amp; Clinical Safety Overview</h3>
+        <span class="badge badge-emerald">Physician Guided: Dr. Demo</span>
+      </div>
+      <p style="font-size:13px;color:#94a3b8;line-height:1.6;margin-bottom:18px">
+        This care summary is synthesized by MediPersonal AI under the clinical supervision of 
+        <strong>Dr. Demo</strong> (Attending Physician). Treatment recommendations are adapted to your 
+        longitudinal medical history, renal eGFR values (${p.egfr || 85} mL/min), and documented hypersensitivities.
+      </p>
+
+      <div style="background:rgba(6, 182, 212, 0.08);border:1px solid rgba(6, 182, 212, 0.3);border-radius:12px;padding:20px;margin-bottom:20px">
+        <span style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px">Highest Suitability Treatment Recommended:</span>
+        <h2 style="font-size:22px;color:#fff;margin:6px 0 6px">${topTrt}</h2>
+        <span class="badge badge-teal" style="font-size:12px;margin-bottom:10px;display:inline-block">AI Suitability Score: ${topScore}%</span>
+        <p style="font-size:13px;color:#cbd5e1;line-height:1.5">
+          Cleared by multi-tier safety checks with 0 contraindications. Designed to optimize disease control while protecting kidney and cardiovascular health.
+        </p>
+      </div>
+
+      <div class="grid-2-col">
+        <div style="background:var(--bg-card-subtle);border:1px solid var(--border-color);border-radius:10px;padding:16px">
+          <h4 style="font-size:14px;color:#fff;margin-bottom:8px">Active Safety Rules Protecting You:</h4>
+          <ul style="font-size:12.5px;color:#94a3b8;padding-left:18px;line-height:1.6">
+            <li><b>Renal Safety Safeguard:</b> Preserves medication dosing safety based on your current eGFR (${p.egfr || 80} mL/min).</li>
+            <li><b>Allergy Exclusions:</b> Strictly filters against documented allergens (Current: ${p.allergy || 'None'}).</li>
+            <li><b>Adverse History Protection:</b> Automatically downranks or excludes therapies that previously caused reactions.</li>
+          </ul>
+        </div>
+
+        <div style="background:var(--bg-card-subtle);border:1px solid var(--border-color);border-radius:10px;padding:16px">
+          <h4 style="font-size:14px;color:#fff;margin-bottom:8px">Patient Responsibility &amp; Communication:</h4>
+          <p style="font-size:12.5px;color:#94a3b8;line-height:1.5">
+            Keep your health timeline updated with home blood glucose and BP readings. Always consult 
+            <strong>Dr. Demo</strong> prior to adjusting prescribed dosages or beginning new therapies.
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function showToast(msg, type = "success") {
+  const container = $("toastContainer");
+  if (!container) return;
+
+  const toast = document.createElement("div");
+  toast.className = `toast-msg toast-${type}`;
+  toast.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${type === 'success' ? '#10b981' : '#f43f5e'}" stroke-width="2.5">
+      ${type === 'success' ? '<polyline points="20 6 9 17 4 12"/>' : '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>'}
+    </svg>
+    <span>${msg}</span>
+  `;
+
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(10px)";
+    toast.style.transition = "all 0.3s ease";
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
 // --------------------------------------------------------------------------
 // Initialization
 // --------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  populateAllPatientSelectors();
-  renderDashboard();
+  renderAuthInterface();
   checkBackendHealth();
   // Poll backend health gently
   setInterval(checkBackendHealth, 15000);

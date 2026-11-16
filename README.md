@@ -104,14 +104,51 @@ Evaluated on 400 test cohort records:
 
 ---
 
-## 6. How to Run the Project
+## 6. Portal Architecture & Role-Based Access Control (RBAC)
+
+The platform provides dual authenticated portals with strict role-based separation:
+
+| Portal | User Persona | Accessible Scope | Add & Delete Permissions | Restricted Tools |
+|---|---|---|---|---|
+| **Doctor Portal** | **Dr. Demo** (Attending Physician / Admin) | Full Clinical CDSS (All 7 modules: Dashboard, Cohort Directory, Longitudinal Timeline, Multi-Model Recommendations, What-If Sensitivity Simulator, Cloud Document Vault, Model Benchmarking) | Can register new patient profiles, upload clinic reports for any patient | None (Full Administrator Authority) |
+| **Patient Portal** | **Registered Patients** (e.g. Ananya Sharma, Rahul Verma, etc.) | **Strictly Personal Health Record (PHR)** (Personal vitals, personal medical timeline, personal documents, and physician-guided care plan) | **Add & Delete Personal Medical History Events** (symptoms, vitals logs, consultations) & **Add & Delete Personal Medical Documents** (lab reports, scans) | **No Admin Rights:** Cannot view or search other patients, cannot adjust ML models, cannot access What-If simulation levers across cohort patients, cannot modify clinical decision rules |
+
+---
+
+## 7. Authentication Credentials & Quick Access
+
+When launching the platform, users are greeted by the **Authentication Gateway**:
+
+### 1. Doctor / Admin Portal (Dr. Demo)
+- **Role:** Physician / CDSS Administrator
+- **Username / ID:** `drdemo` *(or `dr.demo`)*
+- **Password:** `demo123`
+
+### 2. Patient Health Portal (Personal Access)
+- **Role:** Patient (Scoped Personal Health Records)
+- **Patient ID:** `P001` *(or name `ananya`)* | **Password:** `patient123`
+- **Pre-Configured Registered Patients:**
+  - `P001` (Ananya Sharma · Type 2 Diabetes) | Password: `patient123`
+  - `P002` (Rahul Verma · Hypertension & CKD) | Password: `patient123`
+  - `P003` (Meera Singh · Type 2 Diabetes) | Password: `patient123`
+  - `P004` (Arjun Gupta · Asthma) | Password: `patient123`
+  - `P005` (Dr. Vikram Joshi · CKD 4 & Heart Failure) | Password: `patient123`
+- **New Patient Registration:** Patients can also click the **"Register Patient"** tab to register a new account and log in to their personal portal.
+
+---
+
+## 8. How to Start the Project (Step-by-Step)
 
 ### Option A: One-Click Launch (Recommended)
 Double-click `start_system.bat` or run in PowerShell:
 ```powershell
 .\start_system.ps1
 ```
-This automatically verifies dependencies, starts the FastAPI server on `http://localhost:8000`, and opens `index.html` in your default browser.
+This automatically:
+1. Verifies the Python virtual environment and dependencies.
+2. Launches the FastAPI ML Backend on `http://127.0.0.1:8000`.
+3. Opens `index.html` in your default browser.
+4. Displays the login portal credentials in the terminal console.
 
 ### Option B: Manual Launch
 1. **Activate Python Virtual Environment & Install Dependencies:**
@@ -129,11 +166,51 @@ This automatically verifies dependencies, starts the FastAPI server on `http://l
    ```powershell
    uvicorn ml_service.main:app --host 127.0.0.1 --port 8000 --reload
    ```
+   *FastAPI interactive Swagger documentation will be available at `http://127.0.0.1:8000/docs`.*
 
 4. **Open Frontend:**
-   Double-click `index.html` in your browser. The dashboard automatically detects the live FastAPI service!
+   Double-click `index.html` in your browser (or serve with any local HTTP server: `python -m http.server 3000`).
+   The dashboard automatically detects the live FastAPI service (indicated by the green pulse dot in the status card)!
 
 ---
 
-## 7. Ethical AI & Human-in-the-Loop Statement
+## 9. Testing & Evaluation Workflow
+
+1. **Test Dr. Demo (Physician / Admin Portal):**
+   - On the login screen, click **"Instant Sign In as Dr. Demo"** (or enter `drdemo` / `demo123`).
+   - Notice that the existing Dr. Demo interface is 100% intact:
+     - Executive Dashboard with cohort metrics.
+     - Patient Clinical Records with search and risk filters.
+     - Clinical History Timeline across all cohort patients.
+     - AI Treatment Recommendation with multi-model inference (XGBoost, Decision Tree, Random Forest, Logistic Regression).
+     - Interactive What-If Sensitivity Simulator.
+     - Cloud Document Hub & OCR.
+     - Model Benchmarking & Global Feature Importance.
+   - Click the **"Sign Out"** button in Dr. Demo's top-right profile badge to return to the Authentication Gateway.
+
+2. **Test Patient Portal (Personal Health Records):**
+   - On the login screen, select the **"Patient Portal (Personal)"** tab.
+   - Click **"Ananya Sharma (P001)"** (or enter `P001` / `patient123`).
+   - Notice the strict personal data scoping:
+     - Header displays Ananya Sharma with a lock badge: *"Personal Data Only (Add & Delete Enabled)"*.
+     - There is **no patient switcher** or cross-patient search.
+     - All 7 doctor modules (What-If simulator, model benchmarking, etc.) are restricted.
+   - **Test ADD & DELETE in Medical Timeline:**
+     - Click **"My Medical Timeline & Events"** tab.
+     - Click **"+ Add Personal Health Event"**, enter details (e.g. *"Fasting Blood Glucose 124 mg/dL"*, category: *Home Monitoring*), and click **Save**. Notice it appears immediately!
+     - Click **"Delete"** on any timeline entry, confirm the prompt, and observe the item removed with a toast notification.
+   - **Test ADD & DELETE in Medical Documents:**
+     - Click **"My Lab Reports & Documents"** tab.
+     - Click **"+ Upload Medical Document"**, click **"Load Sample Lab OCR Text"**, and click **Upload to My Cloud Vault**. Notice the document appears with extracted lab entities and SHA-256 hash!
+     - Click **"Delete"** on any document card, confirm the prompt, and observe the document removed from the vault.
+   - Click **"Sign Out"** to return to the login screen.
+
+3. **Verify Data Synchronization:**
+   - Log back in as **Dr. Demo**.
+   - Navigate to **"Clinical Timeline"** or **"Cloud Document Hub"** and select **Ananya Sharma (P001)**.
+   - Notice that the events and documents added/deleted by Ananya are synchronized in real-time!
+
+---
+
+## 10. Ethical AI & Human-in-the-Loop Statement
 In compliance with the WHO Guidelines on *Ethics and Governance of Artificial Intelligence for Health* and the TRIPOD+AI standards cited in the synopsis report, **MediPersonal AI is strictly designed as an assistive Clinical Decision Support System (CDSS) to assist qualified medical professionals. It does not independently prescribe medications.** Final treatment decisions remain exclusively with the licensed healthcare provider.

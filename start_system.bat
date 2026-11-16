@@ -21,4 +21,17 @@ timeout /t 2 >nul
 start index.html
 
 echo System is running!
+echo =========================================================================
+echo  AUTHENTICATION PORTAL CREDENTIALS:
+echo  -------------------------------------------------------------------------
+echo  1. Doctor Portal (Dr. Demo - Admin):
+echo     Username: drdemo
+echo     Password: demo123
+echo     (Full access to 7 CDSS modules, What-If simulator, all patient cohorts)
+echo.
+echo  2. Patient Portal (Personal Health Records):
+echo     Patient ID: P001 (or P002, P003, P004, P005)
+echo     Password:   patient123
+echo     (Scoped to personal data: View, Add, and Delete personal records)
+echo =========================================================================
 pause

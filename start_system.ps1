@@ -21,3 +21,16 @@ Write-Host "Opening MediPersonal AI Web Dashboard..." -ForegroundColor Green
 Start-Process "index.html"
 
 Write-Host "MediPersonal AI is fully active!" -ForegroundColor Cyan
+Write-Host "=========================================================================" -ForegroundColor Yellow
+Write-Host " AUTHENTICATION PORTAL CREDENTIALS:" -ForegroundColor Yellow
+Write-Host " -------------------------------------------------------------------------" -ForegroundColor Yellow
+Write-Host " 1. Doctor Portal (Dr. Demo - Attending Physician / Admin):" -ForegroundColor White
+Write-Host "    Username: drdemo" -ForegroundColor Green
+Write-Host "    Password: demo123" -ForegroundColor Green
+Write-Host "    (Full clinical CDSS access, What-If simulator, cohort analytics)" -ForegroundColor Gray
+Write-Host ""
+Write-Host " 2. Patient Portal (Personal Health Records):" -ForegroundColor White
+Write-Host "    Patient ID: P001 (or P002, P003, P004, P005)" -ForegroundColor Green
+Write-Host "    Password:   patient123" -ForegroundColor Green
+Write-Host "    (Scoped strictly to personal data: View, Add, and Delete only)" -ForegroundColor Gray
+Write-Host "=========================================================================" -ForegroundColor Yellow

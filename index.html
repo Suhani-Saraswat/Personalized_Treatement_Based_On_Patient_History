@@ -1,23 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MediPersonal AI | Clinical Decision Support Platform</title>
-  <meta name="description" content="AI-assisted clinical decision-support system analyzing patient-specific historical records to rank personalized treatment options with a safety layer, explainable AI, and cloud document integration.">
+  <meta name="description"
+    content="AI-assisted clinical decision-support system analyzing patient-specific historical records to rank personalized treatment options with a safety layer, explainable AI, and cloud document integration.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div class="app-layout">
+  <!-- ========================================================================= -->
+  <!-- AUTHENTICATION GATEWAY -->
+  <!-- ========================================================================= -->
+  <div id="authPortal" class="auth-overlay">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" />
+          </svg>
+        </div>
+        <div>
+          <h2>MediPersonal<span>AI</span></h2>
+          <p class="auth-subtitle">Clinical Decision Support &amp; Patient Health Platform</p>
+        </div>
+      </div>
+
+      <!-- Portal Selection Tabs -->
+      <div class="auth-role-tabs">
+        <button class="auth-tab active" id="tabBtnDoctor" onclick="switchAuthTab('doctor')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+          </svg>
+          <span>Dr. Demo (Physician)</span>
+        </button>
+        <button class="auth-tab" id="tabBtnPatient" onclick="switchAuthTab('patient')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Patient Portal (Personal)</span>
+        </button>
+        <button class="auth-tab" id="tabBtnRegister" onclick="switchAuthTab('register')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="11" x2="20" y2="17"></line>
+            <line x1="17" y1="14" x2="23" y2="14"></line>
+          </svg>
+          <span>Register Patient</span>
+        </button>
+      </div>
+
+      <!-- DOCTOR AUTH PANEL (DR. DEMO) -->
+      <div id="doctorAuthPanel" class="auth-panel active">
+        <div class="auth-panel-banner">
+          <span class="badge badge-teal">Clinical CDSS Gatekeeper</span>
+          <h3>Physician &amp; Administrator Sign In</h3>
+          <p>Authenticate as <strong>Dr. Demo</strong> to access the full clinical decision dashboard, multi-model recommendations, What-If simulator, and patient cohort analytics.</p>
+        </div>
+
+        <form id="doctorLoginForm" onsubmit="handleDoctorLogin(event)">
+          <div class="form-group">
+            <label for="docUsername">Physician Username / ID</label>
+            <input type="text" id="docUsername" placeholder="Enter Physician Username" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="docPassword">Password</label>
+            <input type="password" id="docPassword" placeholder="Enter Password" required autocomplete="current-password">
+          </div>
+          <div id="doctorLoginError" class="auth-error-msg" style="display:none"></div>
+          <button type="submit" class="btn btn-primary btn-block">Sign In to Dr. Demo Portal</button>
+        </form>
+      </div>
+
+      <!-- PATIENT AUTH PANEL -->
+      <div id="patientAuthPanel" class="auth-panel">
+        <div class="auth-panel-banner">
+          <span class="badge badge-primary">Personal Records Only</span>
+          <h3>Patient Health Portal Sign In</h3>
+          <p>Access only your personal longitudinal health timeline and clinical documents. You can <strong>view, add, and delete your personal records</strong>. No administrative permissions granted.</p>
+        </div>
+
+        <form id="patientLoginForm" onsubmit="handlePatientLogin(event)">
+          <div class="form-group">
+            <label for="patientLoginId">Patient ID or Name</label>
+            <input type="text" id="patientLoginId" placeholder="Enter Patient ID or Full Name" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="patientPassword">Password</label>
+            <input type="password" id="patientPassword" placeholder="Enter Password" required autocomplete="current-password">
+          </div>
+          <div id="patientLoginError" class="auth-error-msg" style="display:none"></div>
+          <button type="submit" class="btn btn-primary btn-block">Sign In to Personal Health Portal</button>
+        </form>
+      </div>
+
+      <!-- REGISTER PATIENT PANEL -->
+      <div id="registerAuthPanel" class="auth-panel">
+        <div class="auth-panel-banner">
+          <span class="badge badge-emerald">New Patient Registration</span>
+          <h3>Register Your Personal Health Record</h3>
+          <p>Create a new patient account to manage your personal health history, track vitals, and upload clinical reports.</p>
+        </div>
+
+        <form id="patientRegisterForm" onsubmit="handleRegisterPatient(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="regPtName">Full Name *</label>
+              <input type="text" id="regPtName" required placeholder="e.g. Priyanshu Saxena">
+            </div>
+            <div class="form-group">
+              <label for="regPtAge">Age *</label>
+              <input type="number" id="regPtAge" min="1" max="120" required value="48">
+            </div>
+            <div class="form-group">
+              <label for="regPtGender">Gender</label>
+              <select id="regPtGender">
+                <option value="Female">Female</option>
+                <option value="Male" selected>Male</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="regPtCondition">Primary Condition *</label>
+              <select id="regPtCondition">
+                <option value="Type 2 Diabetes" selected>Type 2 Diabetes</option>
+                <option value="Hypertension">Hypertension</option>
+                <option value="Asthma">Asthma</option>
+                <option value="Cardiovascular Disease">Cardiovascular Disease</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="regPtEgfr">Renal eGFR (mL/min)</label>
+              <input type="number" id="regPtEgfr" step="0.1" value="75.0">
+            </div>
+            <div class="form-group">
+              <label for="regPtHba1c">HbA1c (%)</label>
+              <input type="number" id="regPtHba1c" step="0.1" value="7.8">
+            </div>
+            <div class="form-group">
+              <label for="regPtBp">Systolic BP (mmHg)</label>
+              <input type="number" id="regPtBp" value="132">
+            </div>
+            <div class="form-group">
+              <label for="regPtPassword">Account Password *</label>
+              <input type="password" id="regPtPassword" placeholder="Create a password" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="regPtAllergy">Known Allergies</label>
+              <input type="text" id="regPtAllergy" placeholder="e.g. Penicillin, Sulfa drugs, or None">
+            </div>
+          </div>
+          <div id="patientRegisterError" class="auth-error-msg" style="display:none"></div>
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top:14px">Create Account &amp; Sign In</button>
+        </form>
+      </div>
+          <div id="patientRegisterError" class="auth-error-msg" style="display:none"></div>
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top:14px">Create Account &amp; Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- ADMIN / DOCTOR (DR. DEMO) INTERFACE (100% UNCHANGED CLINICAL CAPABILITIES) -->
+  <!-- ========================================================================= -->
+  <div class="app-layout" id="adminAppLayout" style="display:none">
     <!-- Sidebar Navigation -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
         <div class="brand-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" />
           </svg>
         </div>
         <div class="brand-meta">
@@ -40,34 +207,62 @@
 
       <nav class="sidebar-nav">
         <button class="nav-item active" data-page="dashboard" id="nav-dashboard">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
           <span>Executive Dashboard</span>
         </button>
         <button class="nav-item" data-page="patients" id="nav-patients">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
           <span>Patient Records</span>
           <span class="nav-counter" id="navPatientCount">4</span>
         </button>
         <button class="nav-item" data-page="history" id="nav-history">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
           <span>Clinical Timeline</span>
         </button>
         <button class="nav-item" data-page="recommend" id="nav-recommend">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
           <span>AI Recommendations</span>
         </button>
         <button class="nav-item" data-page="whatif" id="nav-whatif">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
           <span>What-If Simulator</span>
           <span class="badge-pulse">Live</span>
         </button>
         <button class="nav-item" data-page="documents" id="nav-documents">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <polyline points="10 9 9 9 8 9" />
+          </svg>
           <span>Cloud Document Hub</span>
           <span class="nav-counter" id="navDocCount">0</span>
         </button>
         <button class="nav-item" data-page="evaluation" id="nav-evaluation">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
           <span>Model Benchmarking</span>
         </button>
       </nav>
@@ -79,7 +274,9 @@
         </div>
         <p id="backendDetailText">FastAPI + XGBoost 3.4.1</p>
         <div class="cloud-status-pill">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+          </svg>
           <span>Cloud Storage: Connected</span>
         </div>
       </div>
@@ -103,9 +300,17 @@
           <div class="doctor-profile">
             <div class="doctor-avatar">DD</div>
             <div class="doctor-info">
-              <b>Dr. Dema</b>
+              <b>Dr. Demo</b>
               <span>Attending Physician · Clinical CDSS</span>
             </div>
+            <button class="logout-btn" onclick="logoutUser()" title="Sign Out of Dr. Demo Portal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span>Sign Out</span>
+            </button>
           </div>
         </div>
       </header>
@@ -118,19 +323,29 @@
             <div class="hero-tag">PATIENT-CENTRIC CLINICAL AI · ADVANCED DECISION SUPPORT</div>
             <h2>Personalize Treatment with the <em>Full Patient Story</em></h2>
             <p>
-              Moving beyond generalized one-size-fits-all guidelines. MediPersonal AI analyzes multidimensional patient history—comorbidities, previous treatment responses, renal labs (eGFR), and drug allergies—to rank evidence-based treatment regimens paired with a hard safety filter and explainable feature attribution.
+              Moving beyond generalized one-size-fits-all guidelines. MediPersonal AI analyzes multidimensional patient
+              history—comorbidities, previous treatment responses, renal labs (eGFR), and drug allergies—to rank
+              evidence-based treatment regimens paired with a hard safety filter and explainable feature attribution.
             </p>
             <div class="hero-buttons">
               <button class="btn btn-primary" onclick="showPage('recommend')">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
                 Launch Treatment Recommendation
               </button>
               <button class="btn btn-secondary" onclick="showPage('whatif')">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
                 Interactive What-If Simulator
               </button>
               <button class="btn btn-outline" onclick="showPage('documents')">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
                 Cloud Document Upload
               </button>
             </div>
@@ -265,7 +480,9 @@
               <!-- Populated dynamically -->
             </div>
             <div class="synopsis-callout">
-              <strong>Clinical Domain Focus:</strong> Covers high-impact clinical areas: <em>Type 2 Diabetes, Hypertension, Asthma, and Cardiovascular Disease</em>, evaluating interactions between renal markers, comorbidities, and prior therapies.
+              <strong>Clinical Domain Focus:</strong> Covers high-impact clinical areas: <em>Type 2 Diabetes,
+                Hypertension, Asthma, and Cardiovascular Disease</em>, evaluating interactions between renal markers,
+              comorbidities, and prior therapies.
             </div>
           </div>
         </div>
@@ -279,15 +496,22 @@
             <p>Manage and inspect multi-feature patient histories, comorbidities, and laboratory parameters.</p>
           </div>
           <button class="btn btn-primary" onclick="openAddPatientModal()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
             + Register New Patient
           </button>
         </div>
 
         <div class="filters-bar">
           <div class="search-box">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="patientSearchInput" placeholder="Search by patient name, ID, condition, or comorbidity..." oninput="renderPatientsTable()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" id="patientSearchInput"
+              placeholder="Search by patient name, ID, condition, or comorbidity..." oninput="renderPatientsTable()">
           </div>
           <div class="filter-controls">
             <select id="filterCondition" onchange="renderPatientsTable()">
@@ -331,7 +555,8 @@
         <div class="section-header">
           <div>
             <h2>Clinical History &amp; Longitudinal Timeline</h2>
-            <p>Chronological patient evolution: previous diagnoses, drug trials, adverse events, and lab trajectories.</p>
+            <p>Chronological patient evolution: previous diagnoses, drug trials, adverse events, and lab trajectories.
+            </p>
           </div>
           <div class="patient-selector-wrap">
             <label for="historyPatientSelect">Select Patient:</label>
@@ -355,7 +580,8 @@
           <div class="card profile-detail-card">
             <div class="card-header">
               <h3>Comprehensive Clinical Profile</h3>
-              <button class="btn btn-sm btn-primary" onclick="jumpToRecommendationFromHistory()">Run AI Recommendation →</button>
+              <button class="btn btn-sm btn-primary" onclick="jumpToRecommendationFromHistory()">Run AI Recommendation
+                →</button>
             </div>
             <div class="profile-details-list" id="profileDetailsList">
               <!-- Populated dynamically -->
@@ -369,7 +595,8 @@
         <div class="section-header">
           <div>
             <h2>AI Treatment Recommendation Engine</h2>
-            <p>History-aware multi-model ranking coupled with 4-tier clinical safety rule validation and explainable AI.</p>
+            <p>History-aware multi-model ranking coupled with 4-tier clinical safety rule validation and explainable AI.
+            </p>
           </div>
           <div class="recommend-controls">
             <div class="selector-item">
@@ -386,7 +613,11 @@
               </select>
             </div>
             <button class="btn btn-outline" onclick="printCDSReport()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9" />
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                <rect x="6" y="14" width="12" height="8" />
+              </svg>
               Export Clinical CDS Report
             </button>
           </div>
@@ -402,7 +633,8 @@
         <div class="section-header">
           <div>
             <h2>Step 7: Interactive What-If Sensitivity Simulator</h2>
-            <p>Dynamically alter patient parameters, biomarkers, and adverse histories to observe real-time treatment re-ranking.</p>
+            <p>Dynamically alter patient parameters, biomarkers, and adverse histories to observe real-time treatment
+              re-ranking.</p>
           </div>
           <div class="patient-selector-wrap">
             <label for="whatifPatientSelect">Base Patient:</label>
@@ -424,7 +656,8 @@
                 <span>Renal Function (eGFR)</span>
                 <b id="valWhatifEgfr">78 mL/min</b>
               </div>
-              <input type="range" id="sliderWhatifEgfr" min="15" max="120" step="1" value="78" oninput="updateWhatIfAnalysis()">
+              <input type="range" id="sliderWhatifEgfr" min="15" max="120" step="1" value="78"
+                oninput="updateWhatIfAnalysis()">
               <div class="slider-limits">
                 <span>15 (Severe Failure)</span>
                 <span>60 (CKD Cutoff)</span>
@@ -437,7 +670,8 @@
                 <span>Glycemic Control (HbA1c)</span>
                 <b id="valWhatifHba1c">8.4%</b>
               </div>
-              <input type="range" id="sliderWhatifHba1c" min="5.0" max="13.0" step="0.1" value="8.4" oninput="updateWhatIfAnalysis()">
+              <input type="range" id="sliderWhatifHba1c" min="5.0" max="13.0" step="0.1" value="8.4"
+                oninput="updateWhatIfAnalysis()">
               <div class="slider-limits">
                 <span>5.0% (Normal)</span>
                 <span>7.0% (Target)</span>
@@ -450,7 +684,8 @@
                 <span>Systolic Blood Pressure</span>
                 <b id="valWhatifBp">138 mmHg</b>
               </div>
-              <input type="range" id="sliderWhatifBp" min="90" max="200" step="1" value="138" oninput="updateWhatIfAnalysis()">
+              <input type="range" id="sliderWhatifBp" min="90" max="200" step="1" value="138"
+                oninput="updateWhatIfAnalysis()">
               <div class="slider-limits">
                 <span>90 (Hypotension)</span>
                 <span>130 (Target)</span>
@@ -463,7 +698,8 @@
                 <span>Patient Age</span>
                 <b id="valWhatifAge">52 yrs</b>
               </div>
-              <input type="range" id="sliderWhatifAge" min="18" max="90" step="1" value="52" oninput="updateWhatIfAnalysis()">
+              <input type="range" id="sliderWhatifAge" min="18" max="90" step="1" value="52"
+                oninput="updateWhatIfAnalysis()">
             </div>
 
             <!-- Interactive Clinical Toggles -->
@@ -517,7 +753,9 @@
               <span class="badge badge-pulse">Live Recalculation</span>
             </div>
             <p class="whatif-intro-text">
-              Notice how modifying <strong>eGFR &lt; 30 mL/min</strong> instantly disqualifies Metformin due to lactic acidosis risk, or adding <strong>Sulfa Allergy</strong> excludes Sulfonylureas while elevating renal-protective SGLT2 inhibitors and GLP-1 receptor agonists.
+              Notice how modifying <strong>eGFR &lt; 30 mL/min</strong> instantly disqualifies Metformin due to lactic
+              acidosis risk, or adding <strong>Sulfa Allergy</strong> excludes Sulfonylureas while elevating
+              renal-protective SGLT2 inhibitors and GLP-1 receptor agonists.
             </p>
 
             <div class="whatif-diff-table" id="whatifDiffResults">
@@ -536,11 +774,14 @@
         <div class="section-header">
           <div>
             <h2>Cloud Document Hub &amp; Medical OCR Extractor</h2>
-            <p>Upload medical reports, lab slips, and discharge summaries with Cloudinary integration &amp; clinical parameter extraction.</p>
+            <p>Upload medical reports, lab slips, and discharge summaries with Cloudinary integration &amp; clinical
+              parameter extraction.</p>
           </div>
           <div class="cloud-indicator-box">
             <div class="cloud-badge active">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
               <span>Cloud Storage Provider: <strong>Cloudinary / Secure S3 Vault</strong></span>
             </div>
           </div>
@@ -550,17 +791,23 @@
         <div class="card upload-dropzone-card" id="dropZone">
           <div class="dropzone-content">
             <div class="upload-pulse-icon">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
             </div>
             <h3>Drag &amp; Drop Medical Reports to Cloud Vault</h3>
-            <p>Supports PDF, PNG, JPG, and Medical EHR Summaries. Automated clinical biomarker OCR parsing upon upload.</p>
-            
+            <p>Supports PDF, PNG, JPG, and Medical EHR Summaries. Automated clinical biomarker OCR parsing upon upload.
+            </p>
+
             <div class="upload-form-inline">
               <label class="btn btn-primary file-input-label">
                 <span>Browse Files...</span>
-                <input type="file" id="medicalFileInput" accept=".pdf,.png,.jpg,.jpeg,.txt" onchange="handleFileSelected(event)">
+                <input type="file" id="medicalFileInput" accept=".pdf,.png,.jpg,.jpeg,.txt"
+                  onchange="handleFileSelected(event)">
               </label>
-              
+
               <div class="select-inline-wrap">
                 <select id="uploadDocPatient">
                   <!-- Populated dynamically -->
@@ -578,8 +825,10 @@
             <div class="quick-demo-uploads">
               <small>Or load pre-configured clinical test documents:</small>
               <div class="demo-buttons">
-                <button class="btn btn-sm btn-outline" onclick="loadSampleDoc('nephropathy')">📄 Load Lab Report: Diabetic Nephropathy (eGFR 38, HbA1c 8.8%)</button>
-                <button class="btn btn-sm btn-outline" onclick="loadSampleDoc('hypertension')">📄 Load Cardiology Summary (BP 164/98, ACEi Angioedema)</button>
+                <button class="btn btn-sm btn-outline" onclick="loadSampleDoc('nephropathy')">📄 Load Lab Report:
+                  Diabetic Nephropathy (eGFR 38, HbA1c 8.8%)</button>
+                <button class="btn btn-sm btn-outline" onclick="loadSampleDoc('hypertension')">📄 Load Cardiology
+                  Summary (BP 164/98, ACEi Angioedema)</button>
               </div>
             </div>
           </div>
@@ -608,7 +857,8 @@
               <div class="empty-ocr-state">
                 <div class="empty-icon">🔬</div>
                 <h4>Select or Upload a Medical Report</h4>
-                <p>The parser will automatically identify critical biomarkers (eGFR, HbA1c, Creatinine, Blood Pressure, Allergies) and allow one-click synchronization into the patient record.</p>
+                <p>The parser will automatically identify critical biomarkers (eGFR, HbA1c, Creatinine, Blood Pressure,
+                  Allergies) and allow one-click synchronization into the patient record.</p>
               </div>
             </div>
           </div>
@@ -620,10 +870,14 @@
         <div class="section-header">
           <div>
             <h2>Machine Learning Model Benchmarking &amp; Evaluation</h2>
-            <p>Comparative empirical performance analysis across Logistic Regression, Decision Tree, Random Forest, and XGBoost.</p>
+            <p>Comparative empirical performance analysis across Logistic Regression, Decision Tree, Random Forest, and
+              XGBoost.</p>
           </div>
           <button class="btn btn-outline" onclick="reRunEvaluationPipeline()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10" />
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+            </svg>
             Refresh Benchmark Cache
           </button>
         </div>
@@ -677,7 +931,8 @@
               <span class="badge badge-indigo">Ensemble Tree Attribution</span>
             </div>
             <p class="small-desc">
-              Determines which patient historical dimensions most significantly influence personalized treatment ranking according to trained XGBoost &amp; Random Forest weights.
+              Determines which patient historical dimensions most significantly influence personalized treatment ranking
+              according to trained XGBoost &amp; Random Forest weights.
             </p>
             <div class="feature-importance-bars" id="featureImportanceBars">
               <!-- Populated dynamically -->
@@ -695,12 +950,14 @@
             <div class="paper-box">
               <strong>Research Paper 1 (PMC / NLM)</strong>
               <em>Clinical Decision Support for Genetically Guided Personalized Medicine</em>
-              <p>Highlights integrating complex individualized patient histories into clinical workflows rather than generic protocols.</p>
+              <p>Highlights integrating complex individualized patient histories into clinical workflows rather than
+                generic protocols.</p>
             </div>
             <div class="paper-box">
               <strong>Research Paper 2 (PMC / NLM)</strong>
               <em>The Use of Precision Medicine to Support Clinical Decisions</em>
-              <p>Demonstrates combining Patient History + Clinical Information + Computational Analysis → Personalized Decision Support.</p>
+              <p>Demonstrates combining Patient History + Clinical Information + Computational Analysis → Personalized
+                Decision Support.</p>
             </div>
             <div class="paper-box">
               <strong>Research Paper 3 (PMC / NLM)</strong>
@@ -709,13 +966,287 @@
             </div>
             <div class="paper-box highlight-box">
               <strong>Research Gap Solved by MediPersonal AI</strong>
-              <p>While most academic ML projects predict only disease presence, this platform addresses the critical clinical gap: <strong>Treatment Recommendation &amp; Safety Ranking based on individual medical history</strong>.</p>
+              <p>While most academic ML projects predict only disease presence, this platform addresses the critical
+                clinical gap: <strong>Treatment Recommendation &amp; Safety Ranking based on individual medical
+                  history</strong>.</p>
             </div>
           </div>
         </div>
       </section>
     </main>
   </div>
+
+  <!-- ========================================================================= -->
+  <!-- PATIENT / PERSONAL USER INTERFACE (SELF-SERVICE SCOPED PHR) -->
+  <!-- ========================================================================= -->
+  <div class="patient-app-layout" id="patientAppLayout" style="display:none">
+    <!-- Patient Header / Navigation Bar -->
+    <header class="patient-header">
+      <div class="patient-brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" />
+          </svg>
+        </div>
+        <div class="patient-brand-text">
+          <h2>MediPersonal<span>AI</span> <span class="phr-pill">PATIENT PORTAL</span></h2>
+          <small>Personal Health Records · Patient Self-Service Portal</small>
+        </div>
+      </div>
+
+      <div class="patient-access-badge">
+        <span class="badge-dot-emerald"></span>
+        <span>Personal Data Only (Add &amp; Delete Enabled)</span>
+      </div>
+
+      <div class="patient-header-actions">
+        <div class="patient-user-card" id="patientHeaderProfile">
+          <div class="patient-avatar" id="patientAvatarInitial">AS</div>
+          <div class="patient-user-info">
+            <b id="patientDisplayName">Ananya Sharma</b>
+            <span id="patientDisplayId">ID: P001 · Type 2 Diabetes</span>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logoutUser()" title="Sign Out of Patient Portal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Patient Main Container -->
+    <main class="patient-main-container">
+      <!-- Scoped Access Alert Banner -->
+      <div class="patient-scope-banner">
+        <div class="scope-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <div class="scope-content">
+          <strong>Restricted Scope: Personal Health Record Access Only</strong>
+          <p>
+            You are authenticated in <strong>Personal Patient Mode</strong>. You have permissions to 
+            <strong>view, add, and delete your personal medical history events and health documents</strong>. 
+            No other permissions are granted: cross-patient records, Dr. Demo clinical prescribing levers, 
+            What-If algorithmic simulators, and model benchmarking remain strictly restricted to attending clinicians.
+          </p>
+        </div>
+      </div>
+
+      <!-- Patient Navigation Tabs -->
+      <nav class="patient-tabs-bar">
+        <button class="pt-tab-btn active" id="ptTabBtn-overview" onclick="switchPatientTab('overview')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          </svg>
+          <span>My Health Overview</span>
+        </button>
+        <button class="pt-tab-btn" id="ptTabBtn-timeline" onclick="switchPatientTab('timeline')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span>My Medical Timeline &amp; Events</span>
+          <span class="tab-count-pill" id="ptTimelineCount">0</span>
+        </button>
+        <button class="pt-tab-btn" id="ptTabBtn-documents" onclick="switchPatientTab('documents')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          <span>My Lab Reports &amp; Documents</span>
+          <span class="tab-count-pill" id="ptDocCount">0</span>
+        </button>
+        <button class="pt-tab-btn" id="ptTabBtn-careplan" onclick="switchPatientTab('careplan')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          </svg>
+          <span>My Prescribed Treatment &amp; Safety</span>
+        </button>
+      </nav>
+
+      <!-- PATIENT TAB 1: OVERVIEW & VITALS -->
+      <section id="patientView-overview" class="patient-tab-view active">
+        <!-- Vitals & Demographics Cards -->
+        <div class="patient-grid-vitals" id="patientVitalsGrid">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="grid-2-col" style="margin-top:20px">
+          <!-- Active Medications & Treatment Response -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Active Prescribed Regimen</h3>
+              <span class="badge badge-primary">Current Therapy</span>
+            </div>
+            <div id="patientActiveMedCard"></div>
+          </div>
+
+          <!-- Documented Allergies & Comorbidities -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Safety Profile &amp; Hypersensitivities</h3>
+              <span class="badge badge-rose">Clinical Safety</span>
+            </div>
+            <div id="patientAllergyCard"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PATIENT TAB 2: TIMELINE (WITH ADD & DELETE) -->
+      <section id="patientView-timeline" class="patient-tab-view">
+        <div class="section-actions-header">
+          <div>
+            <h3>My Longitudinal Medical History &amp; Events</h3>
+            <p>You can add new personal health records, symptom logs, or test events, and delete any recorded events.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openPatientAddEventModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Add Personal Health Event
+          </button>
+        </div>
+
+        <div class="patient-timeline-list" id="patientTimelineList">
+          <!-- Dynamically populated with Add and Delete buttons -->
+        </div>
+      </section>
+
+      <!-- PATIENT TAB 3: DOCUMENTS (WITH ADD & DELETE) -->
+      <section id="patientView-documents" class="patient-tab-view">
+        <div class="section-actions-header">
+          <div>
+            <h3>My Cloud Medical Vault &amp; Lab Reports</h3>
+            <p>Upload personal laboratory tests, prescription scans, or clinic summaries, and delete documents at any time.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openPatientAddDocModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload Medical Document
+          </button>
+        </div>
+
+        <div class="patient-docs-grid" id="patientDocsGrid">
+          <!-- Dynamically populated with Add and Delete buttons -->
+        </div>
+      </section>
+
+      <!-- PATIENT TAB 4: CARE PLAN & SAFETY GUIDANCE -->
+      <section id="patientView-careplan" class="patient-tab-view">
+        <div id="patientCarePlanContent">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS FOR PATIENT (ADD EVENT & UPLOAD DOC) -->
+  <!-- ========================================================================= -->
+  <!-- MODAL: PATIENT ADD EVENT -->
+  <div class="modal-overlay" id="patientAddEventModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <h3>Add Personal Health History Event</h3>
+          <p>Record a new personal symptom, laboratory test, home glucose/BP reading, or medical note.</p>
+        </div>
+        <button class="modal-close-btn" onclick="closePatientAddEventModal()">×</button>
+      </div>
+      <form id="patientAddEventForm" onsubmit="submitPatientAddEvent(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="ptNewEventYear">Event Year / Date *</label>
+            <input type="text" id="ptNewEventYear" value="2026" required placeholder="e.g. 2026 or Nov 2026">
+          </div>
+          <div class="form-group">
+            <label for="ptNewEventCategory">Category *</label>
+            <select id="ptNewEventCategory">
+              <option value="Home Monitoring" selected>Home Monitoring / Vitals Log</option>
+              <option value="Laboratory Test">Laboratory Test Result</option>
+              <option value="Clinical Visit">Physician Consultation</option>
+              <option value="Medication Update">Medication Update / Response</option>
+              <option value="Symptom / Reaction">Symptom or Side Effect</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label for="ptNewEventTitle">Event Title *</label>
+            <input type="text" id="ptNewEventTitle" required placeholder="e.g. Fasting Blood Glucose Log: 126 mg/dL">
+          </div>
+          <div class="form-group full-width">
+            <label for="ptNewEventDesc">Detailed Description / Notes *</label>
+            <textarea id="ptNewEventDesc" rows="3" required placeholder="e.g. Morning fasting reading recorded after 8 hours fast. Stable glycemic profile with current dietary regimen."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closePatientAddEventModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save to My Health Timeline</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: PATIENT UPLOAD DOCUMENT -->
+  <div class="modal-overlay" id="patientAddDocModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <h3>Upload Personal Medical Document</h3>
+          <p>Securely add your lab report, discharge summary, or prescription scan to your personal vault.</p>
+        </div>
+        <button class="modal-close-btn" onclick="closePatientAddDocModal()">×</button>
+      </div>
+      <form id="patientAddDocForm" onsubmit="submitPatientAddDoc(event)">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="ptNewDocName">Document Title / File Name *</label>
+            <input type="text" id="ptNewDocName" required placeholder="e.g. Renal_Function_Panel_Nov2026.pdf">
+          </div>
+          <div class="form-group">
+            <label for="ptNewDocType">Document Type *</label>
+            <select id="ptNewDocType">
+              <option value="Laboratory Report" selected>Laboratory Report</option>
+              <option value="Prescription Scan">Prescription Scan</option>
+              <option value="Discharge Summary">Discharge Summary</option>
+              <option value="Clinical Consultation Note">Clinical Consultation Note</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Quick Template Autofill</label>
+            <button type="button" class="btn btn-sm btn-outline" style="width:100%;height:38px" onclick="fillPatientDocSample()">
+              ⚡ Load Sample Lab OCR Text
+            </button>
+          </div>
+          <div class="form-group full-width">
+            <label for="ptNewDocContent">Report Content / OCR Text Sample *</label>
+            <textarea id="ptNewDocContent" rows="4" required placeholder="Paste or type lab findings (e.g. eGFR: 76 mL/min, HbA1c: 8.1%, BP: 134/86 mmHg, Allergies: None)..."></textarea>
+            <small style="color:#94a3b8;font-size:11px">MediPersonal AI OCR automatically extracts biomarkers from this document into your cloud vault.</small>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closePatientAddDocModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Upload to My Cloud Vault</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATIONS CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <!-- MODAL: ADD / REGISTER PATIENT -->
   <div class="modal-overlay" id="addPatientModal">
@@ -776,7 +1307,8 @@
           <!-- Medical History & Comorbidities -->
           <div class="form-group full-width">
             <label for="newPtComorbidity">Comorbidities (comma-separated)</label>
-            <input type="text" id="newPtComorbidity" placeholder="e.g. Chronic Kidney Disease, Hypertension, Dyslipidemia">
+            <input type="text" id="newPtComorbidity"
+              placeholder="e.g. Chronic Kidney Disease, Hypertension, Dyslipidemia">
           </div>
           <div class="form-group">
             <label for="newPtAllergy">Known Drug Allergies</label>
@@ -830,4 +1362,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>

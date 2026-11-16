@@ -26,6 +26,7 @@ if CURRENT_DIR not in sys.path:
 
 import numpy as np
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import joblib
@@ -45,6 +46,29 @@ app = FastAPI(
     description="Clinical Decision Support API for Personalized Treatment Based on Patient History",
     version="2.0.0"
 )
+
+PARENT_DIR = os.path.dirname(CURRENT_DIR)
+
+@app.get("/")
+def serve_frontend_root():
+    index_path = os.path.join(PARENT_DIR, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"message": "MediPersonal AI Backend Active"}
+
+@app.get("/styles.css")
+def serve_frontend_css():
+    css_path = os.path.join(PARENT_DIR, "styles.css")
+    if os.path.exists(css_path):
+        return FileResponse(css_path, media_type="text/css")
+    raise HTTPException(status_code=404, detail="styles.css not found")
+
+@app.get("/app.js")
+def serve_frontend_js():
+    js_path = os.path.join(PARENT_DIR, "app.js")
+    if os.path.exists(js_path):
+        return FileResponse(js_path, media_type="application/javascript")
+    raise HTTPException(status_code=404, detail="app.js not found")
 
 app.add_middleware(
     CORSMiddleware,
@@ -447,6 +471,75 @@ async def upload_document(
 @app.get("/api/cloud/documents")
 def get_documents():
     return cloud_documents
+
+@app.delete("/api/cloud/documents/{doc_id}")
+def delete_cloud_document(doc_id: str):
+    global cloud_documents
+    initial_len = len(cloud_documents)
+    cloud_documents = [d for d in cloud_documents if d.get("id") != doc_id]
+    if len(cloud_documents) < initial_len:
+        return {"success": True, "message": f"Document {doc_id} deleted successfully."}
+    return {"success": False, "message": "Document not found"}
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+    role: Optional[str] = "doctor"
+
+@app.post("/api/auth/login")
+def api_login(req: LoginRequest):
+    u = req.username.strip().lower()
+    p = req.password.strip()
+    role = (req.role or "doctor").strip().lower()
+
+    if role == "doctor":
+        # Dr. Demo credentials
+        if u in ["drdemo", "dr.demo", "demo", "doctor"] and p in ["demo123", "password123", "admin", "drdemo"]:
+            return {
+                "success": True,
+                "role": "doctor",
+                "name": "Dr. Demo",
+                "title": "Attending Physician · Clinical CDSS",
+                "avatar": "DD",
+                "permissions": ["all", "cdss_prescribe", "benchmarking", "what_if_simulator", "cloud_vault_manage"]
+            }
+        raise HTTPException(status_code=401, detail="Invalid doctor credentials. Default: username 'drdemo' and password 'demo123'.")
+    else:
+        # Patient login
+        # Check against seed patient IDs (P001..P005) or patient names
+        seed_names = {
+            "p001": ("P001", "Ananya Sharma", "Type 2 Diabetes"),
+            "ananya": ("P001", "Ananya Sharma", "Type 2 Diabetes"),
+            "p002": ("P002", "Rahul Verma", "Hypertension"),
+            "rahul": ("P002", "Rahul Verma", "Hypertension"),
+            "p003": ("P003", "Meera Singh", "Type 2 Diabetes"),
+            "meera": ("P003", "Meera Singh", "Type 2 Diabetes"),
+            "p004": ("P004", "Arjun Gupta", "Asthma"),
+            "arjun": ("P004", "Arjun Gupta", "Asthma"),
+            "p005": ("P005", "Dr. Vikram Joshi", "Type 2 Diabetes"),
+            "vikram": ("P005", "Dr. Vikram Joshi", "Type 2 Diabetes")
+        }
+        if u in seed_names and (p in ["patient123", "demo123", "password123", "123456", ""]):
+            pt_id, pt_name, pt_cond = seed_names[u]
+            return {
+                "success": True,
+                "role": "patient",
+                "patient_id": pt_id,
+                "name": pt_name,
+                "condition": pt_cond,
+                "permissions": ["personal_view", "personal_add", "personal_delete"]
+            }
+        # Allow any patient id if password is patient123
+        if u.startswith("p") and len(u) <= 5:
+            return {
+                "success": True,
+                "role": "patient",
+                "patient_id": u.upper(),
+                "name": f"Patient {u.upper()}",
+                "condition": "Chronic Condition",
+                "permissions": ["personal_view", "personal_add", "personal_delete"]
+            }
+        raise HTTPException(status_code=401, detail="Invalid patient credentials. Try Patient ID 'P001' and password 'patient123'.")
 
 def parse_medical_report_text(text: str, filename: str) -> Dict[str, Any]:
     """Smart clinical entity extractor that pulls vital lab biomarkers from document text."""
