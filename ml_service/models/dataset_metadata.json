@@ -1,0 +1,63 @@
+{
+  "dataset_name": "Diabetes 130-US Hospitals (1999-2008)",
+  "source": "Humberto Brandao, Ph.D. (Kaggle) / UCI Machine Learning Repository",
+  "kaggle_url": "https://www.kaggle.com/datasets/brandao/diabetes/data",
+  "total_records": 25000,
+  "unique_patients": 18648,
+  "hospitals_represented": 130,
+  "time_period": "1999 - 2008 (10 Years)",
+  "features_processed": 15,
+  "feature_names": [
+    "age",
+    "gender",
+    "condition",
+    "disease_duration",
+    "egfr",
+    "hba1c",
+    "systolic_bp",
+    "comorbidity_ckd",
+    "comorbidity_chf",
+    "comorbidity_asthma",
+    "prev_response",
+    "allergy_sulfa",
+    "allergy_penicillin",
+    "allergy_acei",
+    "prev_adverse"
+  ],
+  "gender_distribution": {
+    "Female": 13309,
+    "Male": 11691
+  },
+  "age_distribution": {
+    "[0-10)": 124,
+    "[10-20)": 373,
+    "[20-30)": 414,
+    "[30-40)": 1130,
+    "[40-50)": 2706,
+    "[50-60)": 4543,
+    "[60-70)": 5378,
+    "[70-80)": 6603,
+    "[80-90)": 3267,
+    "[90-100)": 462
+  },
+  "medication_distribution": {
+    "Metformin": 2822,
+    "Insulin": 11167,
+    "Sulfonylurea": 3531,
+    "DPP4_or_TZD": 561,
+    "Combination": 6919
+  },
+  "readmission_distribution": {
+    "NO": 13550,
+    ">30": 8526,
+    "<30": 2924
+  },
+  "target_classes": [
+    "Metformin (First-line Biguanide)",
+    "SGLT2 Inhibitor (Empagliflozin)",
+    "GLP-1 Receptor Agonist (Semaglutide)",
+    "DPP-4 Inhibitor (Sitagliptin)",
+    "Sulfonylurea (Glimepiride)",
+    "Basal Insulin Glargine"
+  ]
+}

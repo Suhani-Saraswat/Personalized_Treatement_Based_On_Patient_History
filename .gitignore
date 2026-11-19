@@ -1,0 +1,17 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Large Dataset Files (downloaded dynamically via download_dataset.py)
+ml_service/data/*.zip
+ml_service/data/*.csv
+
+# OS generated
+.DS_Store
+Thumbs.db

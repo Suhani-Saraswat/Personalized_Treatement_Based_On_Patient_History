@@ -1,0 +1,2234 @@
+[
+  {
+    "encounter_id": "2278392",
+    "patient_nbr": "8222157",
+    "age": "[0-10)",
+    "age_num": 5,
+    "gender": "Female",
+    "time_in_hospital_days": 1.0,
+    "num_medications": 1,
+    "num_lab_procedures": 41,
+    "primary_diagnosis": "250.83",
+    "secondary_diagnosis": "?",
+    "tertiary_diagnosis": "?",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.9,
+    "egfr_estimated": 98.5,
+    "systolic_bp": 118,
+    "comorbidities": [],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "182796",
+    "patient_nbr": "63000108",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 12,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "410",
+    "secondary_diagnosis": "401",
+    "tertiary_diagnosis": "582",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.1,
+    "egfr_estimated": 30.1,
+    "systolic_bp": 148,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "248916",
+    "patient_nbr": "115196778",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 11,
+    "num_lab_procedures": 25,
+    "primary_diagnosis": "996",
+    "secondary_diagnosis": "585",
+    "tertiary_diagnosis": "250.01",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.0,
+    "egfr_estimated": 30.2,
+    "systolic_bp": 124,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "253380",
+    "patient_nbr": "56480238",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 6.0,
+    "num_medications": 18,
+    "num_lab_procedures": 87,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "496",
+    "tertiary_diagnosis": "250.42",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.2,
+    "egfr_estimated": 29.5,
+    "systolic_bp": 135,
+    "comorbidities": [
+      "CKD",
+      "Asthma"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glyburide"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "293118",
+    "patient_nbr": "3327282",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 20,
+    "num_lab_procedures": 46,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "585",
+    "tertiary_diagnosis": "414",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.8,
+    "egfr_estimated": 44.4,
+    "systolic_bp": 127,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "419304",
+    "patient_nbr": "99715041",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Male",
+    "time_in_hospital_days": 7.0,
+    "num_medications": 9,
+    "num_lab_procedures": 36,
+    "primary_diagnosis": "511",
+    "secondary_diagnosis": "571",
+    "tertiary_diagnosis": "585",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.0,
+    "egfr_estimated": 29.2,
+    "systolic_bp": 120,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "922080",
+    "patient_nbr": "22655295",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 14,
+    "num_lab_procedures": 31,
+    "primary_diagnosis": "440",
+    "secondary_diagnosis": "250.03",
+    "tertiary_diagnosis": "582",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.0,
+    "egfr_estimated": 36.5,
+    "systolic_bp": 124,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "1115640",
+    "patient_nbr": "76197258",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 14,
+    "num_lab_procedures": 64,
+    "primary_diagnosis": "414",
+    "secondary_diagnosis": "428",
+    "tertiary_diagnosis": "585",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.7,
+    "egfr_estimated": 43.4,
+    "systolic_bp": 128,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glipizide"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "2092362",
+    "patient_nbr": "5041602",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 11.0,
+    "num_medications": 16,
+    "num_lab_procedures": 88,
+    "primary_diagnosis": "250.6",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "581",
+    "a1c_result": ">8",
+    "hba1c_estimated": 11.5,
+    "egfr_estimated": 25.7,
+    "systolic_bp": 127,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glipizide"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "2302170",
+    "patient_nbr": "2024739",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Male",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 5,
+    "num_lab_procedures": 65,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "424",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.9,
+    "egfr_estimated": 45.4,
+    "systolic_bp": 130,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "2429610",
+    "patient_nbr": "90460242",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 7.0,
+    "num_medications": 16,
+    "num_lab_procedures": 55,
+    "primary_diagnosis": "250.6",
+    "secondary_diagnosis": "581",
+    "tertiary_diagnosis": "786",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.1,
+    "egfr_estimated": 25.4,
+    "systolic_bp": 113,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "2584908",
+    "patient_nbr": "1174005",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 12.0,
+    "num_medications": 19,
+    "num_lab_procedures": 44,
+    "primary_diagnosis": "997",
+    "secondary_diagnosis": "585",
+    "tertiary_diagnosis": "276",
+    "a1c_result": "Norm",
+    "hba1c_estimated": 5.9,
+    "egfr_estimated": 36.0,
+    "systolic_bp": 126,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "2732424",
+    "patient_nbr": "6539481",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 8,
+    "num_lab_procedures": 63,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "581",
+    "tertiary_diagnosis": "403",
+    "a1c_result": ">8",
+    "hba1c_estimated": 10.8,
+    "egfr_estimated": 32.0,
+    "systolic_bp": 138,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": ">30",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "2812446",
+    "patient_nbr": "924174",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 9.0,
+    "num_medications": 13,
+    "num_lab_procedures": 73,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "250.43",
+    "tertiary_diagnosis": "581",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.0,
+    "egfr_estimated": 41.1,
+    "systolic_bp": 126,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "2852430",
+    "patient_nbr": "2341521",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 12,
+    "num_lab_procedures": 67,
+    "primary_diagnosis": "276",
+    "secondary_diagnosis": "157",
+    "tertiary_diagnosis": "588",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.4,
+    "egfr_estimated": 26.6,
+    "systolic_bp": 128,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": ">30",
+    "recommended_target_class": 3
+  },
+  {
+    "encounter_id": "2881794",
+    "patient_nbr": "87652710",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 10,
+    "num_lab_procedures": 51,
+    "primary_diagnosis": "560",
+    "secondary_diagnosis": "250.42",
+    "tertiary_diagnosis": "581",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.7,
+    "egfr_estimated": 23.7,
+    "systolic_bp": 140,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "2938614",
+    "patient_nbr": "5776821",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 6.0,
+    "num_medications": 6,
+    "num_lab_procedures": 50,
+    "primary_diagnosis": "780",
+    "secondary_diagnosis": "585",
+    "tertiary_diagnosis": "250.43",
+    "a1c_result": ">7",
+    "hba1c_estimated": 7.5,
+    "egfr_estimated": 22.3,
+    "systolic_bp": 125,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "2967810",
+    "patient_nbr": "1660293",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 19,
+    "num_lab_procedures": 68,
+    "primary_diagnosis": "572",
+    "secondary_diagnosis": "571",
+    "tertiary_diagnosis": "584",
+    "a1c_result": ">8",
+    "hba1c_estimated": 9.4,
+    "egfr_estimated": 35.7,
+    "systolic_bp": 115,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "3030000",
+    "patient_nbr": "795222",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 14,
+    "num_lab_procedures": 54,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "250.41",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.2,
+    "egfr_estimated": 29.7,
+    "systolic_bp": 119,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "3174918",
+    "patient_nbr": "5332491",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 11,
+    "num_lab_procedures": 58,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "511",
+    "tertiary_diagnosis": "584",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.3,
+    "egfr_estimated": 39.7,
+    "systolic_bp": 126,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "3725712",
+    "patient_nbr": "516384",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 11,
+    "num_lab_procedures": 85,
+    "primary_diagnosis": "276",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "403",
+    "a1c_result": "Norm",
+    "hba1c_estimated": 5.6,
+    "egfr_estimated": 46.3,
+    "systolic_bp": 130,
+    "comorbidities": [
+      "CKD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glyburide"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "4478760",
+    "patient_nbr": "1719279",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 24,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "682",
+    "tertiary_diagnosis": "584",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.5,
+    "egfr_estimated": 32.7,
+    "systolic_bp": 134,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "4507116",
+    "patient_nbr": "3538080",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Male",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 17,
+    "num_lab_procedures": 54,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "403",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.2,
+    "egfr_estimated": 32.0,
+    "systolic_bp": 137,
+    "comorbidities": [
+      "CKD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "4734798",
+    "patient_nbr": "112367394",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 12,
+    "num_lab_procedures": 87,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "403",
+    "tertiary_diagnosis": "428",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.0,
+    "egfr_estimated": 44.6,
+    "systolic_bp": 143,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": ">30",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "4869474",
+    "patient_nbr": "111501",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 11,
+    "num_lab_procedures": 42,
+    "primary_diagnosis": "486",
+    "secondary_diagnosis": "581",
+    "tertiary_diagnosis": "492",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.4,
+    "egfr_estimated": 43.4,
+    "systolic_bp": 112,
+    "comorbidities": [
+      "CKD",
+      "Asthma"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "4893582",
+    "patient_nbr": "5152140",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Female",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 4,
+    "num_lab_procedures": 60,
+    "primary_diagnosis": "599",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "427",
+    "a1c_result": ">8",
+    "hba1c_estimated": 9.9,
+    "egfr_estimated": 22.9,
+    "systolic_bp": 135,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 3
+  },
+  {
+    "encounter_id": "4965444",
+    "patient_nbr": "97125948",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 8.0,
+    "num_medications": 10,
+    "num_lab_procedures": 46,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "276",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.9,
+    "egfr_estimated": 29.3,
+    "systolic_bp": 124,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "5049342",
+    "patient_nbr": "4780035",
+    "age": "[30-40)",
+    "age_num": 35,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 7,
+    "num_lab_procedures": 75,
+    "primary_diagnosis": "596",
+    "secondary_diagnosis": "591",
+    "tertiary_diagnosis": "585",
+    "a1c_result": ">8",
+    "hba1c_estimated": 12.1,
+    "egfr_estimated": 24.4,
+    "systolic_bp": 131,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 3
+  },
+  {
+    "encounter_id": "5123250",
+    "patient_nbr": "89400861",
+    "age": "[90-100)",
+    "age_num": 95,
+    "gender": "Female",
+    "time_in_hospital_days": 1.0,
+    "num_medications": 2,
+    "num_lab_procedures": 68,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "403",
+    "tertiary_diagnosis": "250.01",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.2,
+    "egfr_estimated": 42.9,
+    "systolic_bp": 132,
+    "comorbidities": [
+      "CKD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "5264082",
+    "patient_nbr": "67518999",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Female",
+    "time_in_hospital_days": 6.0,
+    "num_medications": 16,
+    "num_lab_procedures": 48,
+    "primary_diagnosis": "996",
+    "secondary_diagnosis": "38",
+    "tertiary_diagnosis": "585",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.7,
+    "egfr_estimated": 41.0,
+    "systolic_bp": 129,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "glipizide"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 4
+  },
+  {
+    "encounter_id": "5349312",
+    "patient_nbr": "6897267",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 10,
+    "num_lab_procedures": 65,
+    "primary_diagnosis": "410",
+    "secondary_diagnosis": "581",
+    "tertiary_diagnosis": "250.4",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.7,
+    "egfr_estimated": 36.8,
+    "systolic_bp": 136,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "glyburide"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 4
+  },
+  {
+    "encounter_id": "5427474",
+    "patient_nbr": "104752755",
+    "age": "[20-30)",
+    "age_num": 25,
+    "gender": "Female",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 21,
+    "num_lab_procedures": 74,
+    "primary_diagnosis": "571",
+    "secondary_diagnosis": "425",
+    "tertiary_diagnosis": "585",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.9,
+    "egfr_estimated": 37.0,
+    "systolic_bp": 121,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "6068238",
+    "patient_nbr": "115196778",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 16,
+    "num_lab_procedures": 44,
+    "primary_diagnosis": "427",
+    "secondary_diagnosis": "585",
+    "tertiary_diagnosis": "250.41",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.0,
+    "egfr_estimated": 47.0,
+    "systolic_bp": 128,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "6318930",
+    "patient_nbr": "27274527",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 2,
+    "num_lab_procedures": 41,
+    "primary_diagnosis": "227",
+    "secondary_diagnosis": "250",
+    "tertiary_diagnosis": "493",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.1,
+    "egfr_estimated": 68.0,
+    "systolic_bp": 130,
+    "comorbidities": [
+      "Asthma"
+    ],
+    "active_hospital_medications": [
+      "metformin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "6337620",
+    "patient_nbr": "77025807",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 8.0,
+    "num_medications": 27,
+    "num_lab_procedures": 59,
+    "primary_diagnosis": "404",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "491",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.2,
+    "egfr_estimated": 32.3,
+    "systolic_bp": 134,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD",
+      "Asthma",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "6392556",
+    "patient_nbr": "64603215",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Male",
+    "time_in_hospital_days": 11.0,
+    "num_medications": 23,
+    "num_lab_procedures": 27,
+    "primary_diagnosis": "250.7",
+    "secondary_diagnosis": "785",
+    "tertiary_diagnosis": "585",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.6,
+    "egfr_estimated": 29.3,
+    "systolic_bp": 126,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glyburide"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "6494982",
+    "patient_nbr": "76825836",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Male",
+    "time_in_hospital_days": 9.0,
+    "num_medications": 18,
+    "num_lab_procedures": 103,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "581",
+    "tertiary_diagnosis": "250.6",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.1,
+    "egfr_estimated": 24.0,
+    "systolic_bp": 120,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "6656496",
+    "patient_nbr": "4837077",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 12,
+    "num_lab_procedures": 66,
+    "primary_diagnosis": "276",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "427",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.2,
+    "egfr_estimated": 44.5,
+    "systolic_bp": 126,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "6657678",
+    "patient_nbr": "54452511",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 19,
+    "num_lab_procedures": 61,
+    "primary_diagnosis": "486",
+    "secondary_diagnosis": "585",
+    "tertiary_diagnosis": "250.02",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.1,
+    "egfr_estimated": 30.1,
+    "systolic_bp": 132,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": ">30",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "6720732",
+    "patient_nbr": "56464254",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 16,
+    "num_lab_procedures": 68,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "250.6",
+    "tertiary_diagnosis": "584",
+    "a1c_result": "Norm",
+    "hba1c_estimated": 5.6,
+    "egfr_estimated": 29.5,
+    "systolic_bp": 123,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "6889836",
+    "patient_nbr": "9595107",
+    "age": "[20-30)",
+    "age_num": 25,
+    "gender": "Male",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 20,
+    "num_lab_procedures": 61,
+    "primary_diagnosis": "250.13",
+    "secondary_diagnosis": "585",
+    "tertiary_diagnosis": "780",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.0,
+    "egfr_estimated": 41.5,
+    "systolic_bp": 109,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "7055958",
+    "patient_nbr": "5745888",
+    "age": "[30-40)",
+    "age_num": 35,
+    "gender": "Female",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 19,
+    "num_lab_procedures": 49,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "710",
+    "tertiary_diagnosis": "403",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.3,
+    "egfr_estimated": 36.5,
+    "systolic_bp": 144,
+    "comorbidities": [
+      "CKD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "<30",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "7216542",
+    "patient_nbr": "3538080",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Male",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 15,
+    "num_lab_procedures": 59,
+    "primary_diagnosis": "250.13",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "403",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.2,
+    "egfr_estimated": 41.3,
+    "systolic_bp": 142,
+    "comorbidities": [
+      "CKD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "7650828",
+    "patient_nbr": "4571586",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 18,
+    "num_lab_procedures": 80,
+    "primary_diagnosis": "189",
+    "secondary_diagnosis": "599",
+    "tertiary_diagnosis": "585",
+    "a1c_result": ">8",
+    "hba1c_estimated": 10.6,
+    "egfr_estimated": 37.1,
+    "systolic_bp": 119,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glipizide"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "7669572",
+    "patient_nbr": "102099312",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 7.0,
+    "num_medications": 21,
+    "num_lab_procedures": 67,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "402",
+    "tertiary_diagnosis": "599",
+    "a1c_result": ">8",
+    "hba1c_estimated": 11.2,
+    "egfr_estimated": 26.6,
+    "systolic_bp": 133,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "7842342",
+    "patient_nbr": "4310694",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 22,
+    "num_lab_procedures": 84,
+    "primary_diagnosis": "204",
+    "secondary_diagnosis": "785",
+    "tertiary_diagnosis": "584",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.1,
+    "egfr_estimated": 39.6,
+    "systolic_bp": 118,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "7965498",
+    "patient_nbr": "2730537",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 12.0,
+    "num_medications": 16,
+    "num_lab_procedures": 63,
+    "primary_diagnosis": "427",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "276",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.4,
+    "egfr_estimated": 37.0,
+    "systolic_bp": 141,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "7976148",
+    "patient_nbr": "6414021",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 6.0,
+    "num_medications": 17,
+    "num_lab_procedures": 74,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "425",
+    "tertiary_diagnosis": "584",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.3,
+    "egfr_estimated": 27.9,
+    "systolic_bp": 142,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "7989870",
+    "patient_nbr": "103126950",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Male",
+    "time_in_hospital_days": 11.0,
+    "num_medications": 29,
+    "num_lab_procedures": 63,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "491",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.4,
+    "egfr_estimated": 26.2,
+    "systolic_bp": 131,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD",
+      "Asthma"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glyburide"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "8048562",
+    "patient_nbr": "2972943",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Male",
+    "time_in_hospital_days": 8.0,
+    "num_medications": 16,
+    "num_lab_procedures": 59,
+    "primary_diagnosis": "198",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "276",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.7,
+    "egfr_estimated": 33.2,
+    "systolic_bp": 132,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "8356560",
+    "patient_nbr": "2341521",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 10,
+    "num_lab_procedures": 45,
+    "primary_diagnosis": "276",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "155",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.6,
+    "egfr_estimated": 23.2,
+    "systolic_bp": 127,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "pioglitazone"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "8410932",
+    "patient_nbr": "1070721",
+    "age": "[30-40)",
+    "age_num": 35,
+    "gender": "Male",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 12,
+    "num_lab_procedures": 67,
+    "primary_diagnosis": "250.33",
+    "secondary_diagnosis": "581",
+    "tertiary_diagnosis": "276",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.5,
+    "egfr_estimated": 30.5,
+    "systolic_bp": 126,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "8596908",
+    "patient_nbr": "503244",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 9.0,
+    "num_medications": 12,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "733",
+    "secondary_diagnosis": "250.01",
+    "tertiary_diagnosis": "585",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.8,
+    "egfr_estimated": 23.6,
+    "systolic_bp": 128,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "8754426",
+    "patient_nbr": "541314",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 11.0,
+    "num_medications": 28,
+    "num_lab_procedures": 78,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "428",
+    "tertiary_diagnosis": "250.02",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.1,
+    "egfr_estimated": 36.4,
+    "systolic_bp": 122,
+    "comorbidities": [
+      "CKD",
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "glyburide"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 2
+  },
+  {
+    "encounter_id": "8773956",
+    "patient_nbr": "3538080",
+    "age": "[40-50)",
+    "age_num": 45,
+    "gender": "Male",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 24,
+    "num_lab_procedures": 57,
+    "primary_diagnosis": "403",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "276",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.2,
+    "egfr_estimated": 36.9,
+    "systolic_bp": 141,
+    "comorbidities": [
+      "CKD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "8947692",
+    "patient_nbr": "2479023",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 19,
+    "num_lab_procedures": 81,
+    "primary_diagnosis": "584",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "250.4",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.0,
+    "egfr_estimated": 37.9,
+    "systolic_bp": 134,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "9045156",
+    "patient_nbr": "8166528",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Male",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 28,
+    "num_lab_procedures": 66,
+    "primary_diagnosis": "799",
+    "secondary_diagnosis": "250.83",
+    "tertiary_diagnosis": "585",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.0,
+    "egfr_estimated": 41.5,
+    "systolic_bp": 116,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "9075132",
+    "patient_nbr": "96007464",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 9.0,
+    "num_medications": 21,
+    "num_lab_procedures": 64,
+    "primary_diagnosis": "276",
+    "secondary_diagnosis": "584",
+    "tertiary_diagnosis": "295",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.0,
+    "egfr_estimated": 44.3,
+    "systolic_bp": 125,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "9142626",
+    "patient_nbr": "6920199",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 8.0,
+    "num_medications": 27,
+    "num_lab_procedures": 79,
+    "primary_diagnosis": "435",
+    "secondary_diagnosis": "599",
+    "tertiary_diagnosis": "584",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.6,
+    "egfr_estimated": 39.5,
+    "systolic_bp": 117,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "9333306",
+    "patient_nbr": "6215292",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 10,
+    "num_lab_procedures": 42,
+    "primary_diagnosis": "780",
+    "secondary_diagnosis": "250.4",
+    "tertiary_diagnosis": "583",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.4,
+    "egfr_estimated": 43.3,
+    "systolic_bp": 131,
+    "comorbidities": [
+      "CKD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "10761390",
+    "patient_nbr": "1219869",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 7,
+    "num_lab_procedures": 59,
+    "primary_diagnosis": "573",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "571",
+    "a1c_result": "None",
+    "hba1c_estimated": 6.5,
+    "egfr_estimated": 84.9,
+    "systolic_bp": 130,
+    "comorbidities": [],
+    "active_hospital_medications": [],
+    "readmitted": ">30",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "15724872",
+    "patient_nbr": "77694804",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 10,
+    "num_lab_procedures": 45,
+    "primary_diagnosis": "434",
+    "secondary_diagnosis": "401",
+    "tertiary_diagnosis": "414",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.9,
+    "egfr_estimated": 65.6,
+    "systolic_bp": 129,
+    "comorbidities": [
+      "CHF/CVD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "metformin",
+      "glipizide"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "20151942",
+    "patient_nbr": "49688397",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 8.0,
+    "num_medications": 12,
+    "num_lab_procedures": 51,
+    "primary_diagnosis": "V57",
+    "secondary_diagnosis": "438",
+    "tertiary_diagnosis": "729",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.6,
+    "egfr_estimated": 68.1,
+    "systolic_bp": 141,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "insulin",
+      "glipizide"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "23488122",
+    "patient_nbr": "1507581",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 1.0,
+    "num_medications": 12,
+    "num_lab_procedures": 30,
+    "primary_diagnosis": "414",
+    "secondary_diagnosis": "250.6",
+    "tertiary_diagnosis": "357",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.0,
+    "egfr_estimated": 73.1,
+    "systolic_bp": 128,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "metformin",
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "26301720",
+    "patient_nbr": "26020656",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 14,
+    "num_lab_procedures": 20,
+    "primary_diagnosis": "682",
+    "secondary_diagnosis": "681",
+    "tertiary_diagnosis": "945",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.4,
+    "egfr_estimated": 78.5,
+    "systolic_bp": 129,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "metformin",
+      "pioglitazone"
+    ],
+    "readmitted": "<30",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "28893144",
+    "patient_nbr": "23717061",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 6.0,
+    "num_medications": 13,
+    "num_lab_procedures": 26,
+    "primary_diagnosis": "415",
+    "secondary_diagnosis": "410",
+    "tertiary_diagnosis": "453",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.2,
+    "egfr_estimated": 76.9,
+    "systolic_bp": 142,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "glipizide"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 4
+  },
+  {
+    "encounter_id": "31829844",
+    "patient_nbr": "16676361",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Female",
+    "time_in_hospital_days": 11.0,
+    "num_medications": 8,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "238",
+    "secondary_diagnosis": "284",
+    "tertiary_diagnosis": "250.7",
+    "a1c_result": "None",
+    "hba1c_estimated": 6.7,
+    "egfr_estimated": 71.1,
+    "systolic_bp": 126,
+    "comorbidities": [],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "34522992",
+    "patient_nbr": "84622554",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 8.0,
+    "num_medications": 31,
+    "num_lab_procedures": 42,
+    "primary_diagnosis": "824",
+    "secondary_diagnosis": "824",
+    "tertiary_diagnosis": "599",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.7,
+    "egfr_estimated": 67.0,
+    "systolic_bp": 117,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "glipizide",
+      "pioglitazone"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 4
+  },
+  {
+    "encounter_id": "36856872",
+    "patient_nbr": "94478634",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 26,
+    "num_lab_procedures": 52,
+    "primary_diagnosis": "410",
+    "secondary_diagnosis": "518",
+    "tertiary_diagnosis": "276",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.3,
+    "egfr_estimated": 75.7,
+    "systolic_bp": 129,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glimepiride",
+      "pioglitazone"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "39282798",
+    "patient_nbr": "3523707",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 5.0,
+    "num_medications": 17,
+    "num_lab_procedures": 39,
+    "primary_diagnosis": "997",
+    "secondary_diagnosis": "420",
+    "tertiary_diagnosis": "511",
+    "a1c_result": "None",
+    "hba1c_estimated": 6.7,
+    "egfr_estimated": 67.6,
+    "systolic_bp": 140,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "glimepiride"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 4
+  },
+  {
+    "encounter_id": "41615778",
+    "patient_nbr": "807975",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 12,
+    "num_lab_procedures": 44,
+    "primary_diagnosis": "482",
+    "secondary_diagnosis": "496",
+    "tertiary_diagnosis": "250",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.1,
+    "egfr_estimated": 82.2,
+    "systolic_bp": 134,
+    "comorbidities": [
+      "Asthma"
+    ],
+    "active_hospital_medications": [
+      "glipizide"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 4
+  },
+  {
+    "encounter_id": "44119254",
+    "patient_nbr": "5041512",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Male",
+    "time_in_hospital_days": 7.0,
+    "num_medications": 16,
+    "num_lab_procedures": 55,
+    "primary_diagnosis": "434",
+    "secondary_diagnosis": "496",
+    "tertiary_diagnosis": "285",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.1,
+    "egfr_estimated": 60.5,
+    "systolic_bp": 122,
+    "comorbidities": [
+      "Asthma"
+    ],
+    "active_hospital_medications": [
+      "insulin",
+      "glyburide"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "46564476",
+    "patient_nbr": "1136250",
+    "age": "[0-10)",
+    "age_num": 5,
+    "gender": "Male",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 6,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "250.03",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "?",
+    "a1c_result": ">8",
+    "hba1c_estimated": 12.1,
+    "egfr_estimated": 97.8,
+    "systolic_bp": 108,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "49176954",
+    "patient_nbr": "8724852",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 14.0,
+    "num_medications": 17,
+    "num_lab_procedures": 73,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "707",
+    "tertiary_diagnosis": "486",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.2,
+    "egfr_estimated": 67.2,
+    "systolic_bp": 120,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "51712740",
+    "patient_nbr": "23598360",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 12,
+    "num_lab_procedures": 23,
+    "primary_diagnosis": "276",
+    "secondary_diagnosis": "250.01",
+    "tertiary_diagnosis": "110",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.0,
+    "egfr_estimated": 73.1,
+    "systolic_bp": 119,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "53940726",
+    "patient_nbr": "6449031",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 6.0,
+    "num_medications": 11,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "415",
+    "secondary_diagnosis": "453",
+    "tertiary_diagnosis": "250.6",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.1,
+    "egfr_estimated": 63.9,
+    "systolic_bp": 121,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "metformin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "56124078",
+    "patient_nbr": "106797231",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 11.0,
+    "num_medications": 14,
+    "num_lab_procedures": 69,
+    "primary_diagnosis": "481",
+    "secondary_diagnosis": "276",
+    "tertiary_diagnosis": "203",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.5,
+    "egfr_estimated": 63.6,
+    "systolic_bp": 135,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "metformin",
+      "insulin",
+      "glipizide"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "58517634",
+    "patient_nbr": "93607596",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 9.0,
+    "num_medications": 29,
+    "num_lab_procedures": 41,
+    "primary_diagnosis": "823",
+    "secondary_diagnosis": "285",
+    "tertiary_diagnosis": "414",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.6,
+    "egfr_estimated": 69.3,
+    "systolic_bp": 123,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "pioglitazone"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 3
+  },
+  {
+    "encounter_id": "60564474",
+    "patient_nbr": "13180113",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 8,
+    "num_lab_procedures": 39,
+    "primary_diagnosis": "532",
+    "secondary_diagnosis": "492",
+    "tertiary_diagnosis": "285",
+    "a1c_result": "None",
+    "hba1c_estimated": 6.9,
+    "egfr_estimated": 78.1,
+    "systolic_bp": 116,
+    "comorbidities": [
+      "Asthma"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "62580240",
+    "patient_nbr": "19036917",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 11,
+    "num_lab_procedures": 30,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "288",
+    "tertiary_diagnosis": "401",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.9,
+    "egfr_estimated": 59.2,
+    "systolic_bp": 141,
+    "comorbidities": [
+      "CHF/CVD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "64587294",
+    "patient_nbr": "1657485",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 13,
+    "num_lab_procedures": 30,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "427",
+    "tertiary_diagnosis": "250",
+    "a1c_result": "None",
+    "hba1c_estimated": 6.6,
+    "egfr_estimated": 61.6,
+    "systolic_bp": 130,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": ">30",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "66653136",
+    "patient_nbr": "5036040",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Female",
+    "time_in_hospital_days": 10.0,
+    "num_medications": 22,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "433",
+    "secondary_diagnosis": "401",
+    "tertiary_diagnosis": "272",
+    "a1c_result": "None",
+    "hba1c_estimated": 6.9,
+    "egfr_estimated": 67.9,
+    "systolic_bp": 141,
+    "comorbidities": [
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "metformin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 0
+  },
+  {
+    "encounter_id": "68670276",
+    "patient_nbr": "17323416",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 13,
+    "num_lab_procedures": 47,
+    "primary_diagnosis": "414",
+    "secondary_diagnosis": "153",
+    "tertiary_diagnosis": "401",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.1,
+    "egfr_estimated": 52.7,
+    "systolic_bp": 150,
+    "comorbidities": [
+      "CHF/CVD",
+      "Hypertension"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "70888128",
+    "patient_nbr": "177534",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 9.0,
+    "num_medications": 30,
+    "num_lab_procedures": 56,
+    "primary_diagnosis": "427",
+    "secondary_diagnosis": "428",
+    "tertiary_diagnosis": "425",
+    "a1c_result": "None",
+    "hba1c_estimated": 8.3,
+    "egfr_estimated": 63.1,
+    "systolic_bp": 113,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "72989970",
+    "patient_nbr": "20006055",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Male",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 26,
+    "num_lab_procedures": 20,
+    "primary_diagnosis": "722",
+    "secondary_diagnosis": "401",
+    "tertiary_diagnosis": "250",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.4,
+    "egfr_estimated": 88.1,
+    "systolic_bp": 130,
+    "comorbidities": [
+      "Hypertension"
+    ],
+    "active_hospital_medications": [
+      "glyburide"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 4
+  },
+  {
+    "encounter_id": "75122034",
+    "patient_nbr": "283869",
+    "age": "[60-70)",
+    "age_num": 65,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 13,
+    "num_lab_procedures": 46,
+    "primary_diagnosis": "280",
+    "secondary_diagnosis": "786",
+    "tertiary_diagnosis": "447",
+    "a1c_result": "None",
+    "hba1c_estimated": 10.0,
+    "egfr_estimated": 63.3,
+    "systolic_bp": 123,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": "NO",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "77264784",
+    "patient_nbr": "2218248",
+    "age": "[80-90)",
+    "age_num": 85,
+    "gender": "Male",
+    "time_in_hospital_days": 2.0,
+    "num_medications": 10,
+    "num_lab_procedures": 42,
+    "primary_diagnosis": "428",
+    "secondary_diagnosis": "425",
+    "tertiary_diagnosis": "250",
+    "a1c_result": "Norm",
+    "hba1c_estimated": 6.2,
+    "egfr_estimated": 46.7,
+    "systolic_bp": 120,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "79349562",
+    "patient_nbr": "2401362",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 17,
+    "num_lab_procedures": 55,
+    "primary_diagnosis": "410",
+    "secondary_diagnosis": "427",
+    "tertiary_diagnosis": "428",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.3,
+    "egfr_estimated": 82.7,
+    "systolic_bp": 117,
+    "comorbidities": [
+      "CHF/CVD"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": ">30",
+    "recommended_target_class": 1
+  },
+  {
+    "encounter_id": "81699468",
+    "patient_nbr": "3728997",
+    "age": "[70-80)",
+    "age_num": 75,
+    "gender": "Male",
+    "time_in_hospital_days": 4.0,
+    "num_medications": 6,
+    "num_lab_procedures": 59,
+    "primary_diagnosis": "682",
+    "secondary_diagnosis": "250",
+    "tertiary_diagnosis": "?",
+    "a1c_result": "None",
+    "hba1c_estimated": 9.3,
+    "egfr_estimated": 69.6,
+    "systolic_bp": 125,
+    "comorbidities": [],
+    "active_hospital_medications": [
+      "insulin"
+    ],
+    "readmitted": ">30",
+    "recommended_target_class": 5
+  },
+  {
+    "encounter_id": "83660214",
+    "patient_nbr": "28929465",
+    "age": "[50-60)",
+    "age_num": 55,
+    "gender": "Female",
+    "time_in_hospital_days": 3.0,
+    "num_medications": 15,
+    "num_lab_procedures": 1,
+    "primary_diagnosis": "278",
+    "secondary_diagnosis": "574",
+    "tertiary_diagnosis": "401",
+    "a1c_result": "None",
+    "hba1c_estimated": 7.5,
+    "egfr_estimated": 87.3,
+    "systolic_bp": 136,
+    "comorbidities": [
+      "Hypertension"
+    ],
+    "active_hospital_medications": [],
+    "readmitted": "NO",
+    "recommended_target_class": 0
+  }
+]

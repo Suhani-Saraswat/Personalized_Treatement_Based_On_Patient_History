@@ -1,132 +1,137 @@
 {
+  "dataset_source": "Kaggle: brandao/diabetes (Diabetes 130-US Hospitals 1999-2008)",
   "metrics": {
     "Logistic Regression": {
-      "accuracy": 0.77,
-      "precision": 0.7595,
-      "recall": 0.77,
-      "f1_score": 0.762,
-      "roc_auc": 0.927,
-      "top1_accuracy": 0.77,
-      "top3_accuracy": 0.99
+      "accuracy": 0.7048,
+      "precision": 0.6475,
+      "recall": 0.7048,
+      "f1_score": 0.6513,
+      "roc_auc": 0.8865,
+      "top1_accuracy": 0.7048,
+      "top3_accuracy": 0.9589,
+      "train_time_seconds": 0.16
     },
     "Decision Tree": {
-      "accuracy": 0.97,
-      "precision": 0.9714,
-      "recall": 0.97,
-      "f1_score": 0.9694,
-      "roc_auc": 0.9892,
-      "top1_accuracy": 0.9675,
-      "top3_accuracy": 0.985
+      "accuracy": 0.717,
+      "precision": 0.668,
+      "recall": 0.717,
+      "f1_score": 0.6639,
+      "roc_auc": 0.9064,
+      "top1_accuracy": 0.7174,
+      "top3_accuracy": 0.9666,
+      "train_time_seconds": 0.17
     },
     "Random Forest": {
-      "accuracy": 0.9275,
-      "precision": 0.9313,
-      "recall": 0.9275,
-      "f1_score": 0.9217,
-      "roc_auc": 0.9939,
-      "top1_accuracy": 0.9275,
-      "top3_accuracy": 0.995
+      "accuracy": 0.7214,
+      "precision": 0.6546,
+      "recall": 0.7214,
+      "f1_score": 0.6673,
+      "roc_auc": 0.9148,
+      "top1_accuracy": 0.7214,
+      "top3_accuracy": 0.9736,
+      "train_time_seconds": 4.86
     },
     "XGBoost": {
-      "accuracy": 0.9825,
-      "precision": 0.9825,
-      "recall": 0.9825,
-      "f1_score": 0.9824,
-      "roc_auc": 0.995,
-      "top1_accuracy": 0.9825,
-      "top3_accuracy": 0.995
+      "accuracy": 0.7237,
+      "precision": 0.7022,
+      "recall": 0.7237,
+      "f1_score": 0.6731,
+      "roc_auc": 0.92,
+      "top1_accuracy": 0.7237,
+      "top3_accuracy": 0.9848,
+      "train_time_seconds": 0.82
     }
   },
   "feature_importance": [
     {
-      "feature": "condition",
-      "importance": 0.1622,
-      "rf_importance": 0.181,
-      "xgb_importance": 0.1435
+      "feature": "hba1c",
+      "importance": 0.3811,
+      "rf_importance": 0.6272,
+      "xgb_importance": 0.1349
     },
     {
       "feature": "comorbidity_chf",
-      "importance": 0.1275,
-      "rf_importance": 0.1047,
-      "xgb_importance": 0.1502
-    },
-    {
-      "feature": "hba1c",
-      "importance": 0.1271,
-      "rf_importance": 0.1589,
-      "xgb_importance": 0.0952
-    },
-    {
-      "feature": "egfr",
-      "importance": 0.11,
-      "rf_importance": 0.1269,
-      "xgb_importance": 0.0931
-    },
-    {
-      "feature": "systolic_bp",
-      "importance": 0.0956,
-      "rf_importance": 0.1111,
-      "xgb_importance": 0.08
-    },
-    {
-      "feature": "prev_response",
-      "importance": 0.0867,
-      "rf_importance": 0.0629,
-      "xgb_importance": 0.1106
-    },
-    {
-      "feature": "allergy_acei",
-      "importance": 0.0748,
-      "rf_importance": 0.0256,
-      "xgb_importance": 0.1241
-    },
-    {
-      "feature": "comorbidity_asthma",
-      "importance": 0.0557,
-      "rf_importance": 0.037,
-      "xgb_importance": 0.0744
-    },
-    {
-      "feature": "prev_adverse",
-      "importance": 0.0407,
-      "rf_importance": 0.0284,
-      "xgb_importance": 0.053
-    },
-    {
-      "feature": "allergy_sulfa",
-      "importance": 0.0378,
-      "rf_importance": 0.0133,
-      "xgb_importance": 0.0622
+      "importance": 0.3721,
+      "rf_importance": 0.2223,
+      "xgb_importance": 0.5218
     },
     {
       "feature": "comorbidity_ckd",
-      "importance": 0.034,
-      "rf_importance": 0.068,
-      "xgb_importance": 0.0
+      "importance": 0.0676,
+      "rf_importance": 0.0337,
+      "xgb_importance": 0.1015
     },
     {
-      "feature": "age",
-      "importance": 0.0211,
-      "rf_importance": 0.0357,
-      "xgb_importance": 0.0065
+      "feature": "prev_adverse",
+      "importance": 0.0513,
+      "rf_importance": 0.0132,
+      "xgb_importance": 0.0895
+    },
+    {
+      "feature": "allergy_sulfa",
+      "importance": 0.0396,
+      "rf_importance": 0.0103,
+      "xgb_importance": 0.0688
+    },
+    {
+      "feature": "condition",
+      "importance": 0.0205,
+      "rf_importance": 0.0307,
+      "xgb_importance": 0.0104
+    },
+    {
+      "feature": "prev_response",
+      "importance": 0.0158,
+      "rf_importance": 0.0157,
+      "xgb_importance": 0.0159
+    },
+    {
+      "feature": "egfr",
+      "importance": 0.0121,
+      "rf_importance": 0.0139,
+      "xgb_importance": 0.0104
     },
     {
       "feature": "disease_duration",
-      "importance": 0.0195,
-      "rf_importance": 0.035,
-      "xgb_importance": 0.004
+      "importance": 0.0112,
+      "rf_importance": 0.015,
+      "xgb_importance": 0.0074
+    },
+    {
+      "feature": "age",
+      "importance": 0.01,
+      "rf_importance": 0.0081,
+      "xgb_importance": 0.012
+    },
+    {
+      "feature": "systolic_bp",
+      "importance": 0.0062,
+      "rf_importance": 0.0066,
+      "xgb_importance": 0.0059
+    },
+    {
+      "feature": "comorbidity_asthma",
+      "importance": 0.0036,
+      "rf_importance": 0.0011,
+      "xgb_importance": 0.0061
     },
     {
       "feature": "gender",
-      "importance": 0.0048,
-      "rf_importance": 0.0071,
-      "xgb_importance": 0.0025
+      "importance": 0.0032,
+      "rf_importance": 0.0011,
+      "xgb_importance": 0.0053
     },
     {
       "feature": "allergy_penicillin",
-      "importance": 0.0025,
-      "rf_importance": 0.0044,
-      "xgb_importance": 0.0007
+      "importance": 0.003,
+      "rf_importance": 0.0008,
+      "xgb_importance": 0.0053
+    },
+    {
+      "feature": "allergy_acei",
+      "importance": 0.0026,
+      "rf_importance": 0.0003,
+      "xgb_importance": 0.0048
     }
   ],
   "feature_names": [
@@ -147,8 +152,10 @@
     "prev_adverse"
   ],
   "sample_counts": {
-    "train_samples": 1200,
-    "test_samples": 400,
+    "total_dataset_records": 25000,
+    "cohort_sampled_for_training": 25000,
+    "train_samples": 18750,
+    "test_samples": 6250,
     "total_features": 15
   }
 }

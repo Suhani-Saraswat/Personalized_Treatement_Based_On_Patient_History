@@ -265,6 +265,15 @@
           </svg>
           <span>Model Benchmarking</span>
         </button>
+        <button class="nav-item" data-page="kaggle" id="nav-kaggle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+          </svg>
+          <span>Kaggle Dataset Hub</span>
+          <span class="badge-pulse" style="background:#0284c7;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;font-weight:700;">100k</span>
+        </button>
       </nav>
 
       <div class="system-status-card">
@@ -347,6 +356,14 @@
                   <line x1="12" y1="3" x2="12" y2="15" />
                 </svg>
                 Cloud Document Upload
+              </button>
+              <button class="btn btn-outline" onclick="showPage('kaggle')" style="border-color:#0284c7;color:#0284c7">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+                Kaggle Dataset Hub
               </button>
             </div>
           </div>
@@ -970,6 +987,184 @@
                 clinical gap: <strong>Treatment Recommendation &amp; Safety Ranking based on individual medical
                   history</strong>.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 8: KAGGLE DATASET EXPLORER & COHORT ANALYTICS -->
+      <section id="kaggle" class="page-view">
+        <div class="section-header">
+          <div>
+            <div class="badge-tag-row" style="display:flex;gap:8px;margin-bottom:6px">
+              <span class="badge badge-emerald">Real-World Hospital EHR Dataset</span>
+              <span class="badge badge-teal">Humberto Brandão, Ph.D. / UCI ML Repository</span>
+            </div>
+            <h2>Kaggle 130-US Hospitals Diabetes Clinical Dataset (1999–2008)</h2>
+            <p>10 years of longitudinal inpatient encounters across 130 US medical networks integrated into MediPersonal AI CDSS.</p>
+          </div>
+          <div class="section-actions" style="display:flex;gap:10px;align-items:center">
+            <a href="https://www.kaggle.com/datasets/brandao/diabetes/data" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="display:inline-flex;align-items:center;gap:6px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>View Source on Kaggle</span>
+            </a>
+            <button class="btn btn-primary" onclick="loadKaggleDatasetView(true)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10" />
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+              </svg>
+              <span>Refresh Cohort</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="metrics-grid">
+          <div class="stat-card">
+            <div class="stat-icon-wrapper stat-icon-blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Total Inpatient Encounters</span>
+              <strong class="stat-value" id="kgTotalEncounters">101,766</strong>
+              <small class="stat-subtext">Clinical admissions analyzed</small>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper stat-icon-emerald">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Hospitals &amp; Health Systems</span>
+              <strong class="stat-value" id="kgHospitals">130 Centers</strong>
+              <small class="stat-subtext">Across 10 years (1999–2008)</small>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper stat-icon-amber">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Unique Patients Monitored</span>
+              <strong class="stat-value" id="kgUniquePatients">71,515</strong>
+              <small class="stat-subtext">Longitudinal historical profiles</small>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper stat-icon-purple">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Trained ML Top-3 Accuracy</span>
+              <strong class="stat-value" id="kgAccuracy">98.5%</strong>
+              <small class="stat-subtext">XGBoost on Kaggle cohort</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dataset Analytics Breakdown Cards -->
+        <div class="analytics-row-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+          <div class="card">
+            <div class="card-header">
+              <h3>Prescribed Diabetes Regimens (Kaggle Cohort)</h3>
+              <span class="badge badge-teal">24 Formulations Tracked</span>
+            </div>
+            <div class="kg-distribution-list" id="kgMedDistList" style="padding:16px">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>30-Day Hospital Readmission Distribution</h3>
+              <span class="badge badge-emerald">Primary Outcome</span>
+            </div>
+            <div class="kg-readmit-summary" id="kgReadmitSummary" style="padding:16px">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Patient Cohort Explorer -->
+        <div class="card">
+          <div class="card-header" style="flex-wrap:wrap;gap:10px">
+            <div>
+              <h3>Real-World Patient Encounter Browser</h3>
+              <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">
+                Explore genuine clinical encounters from the Kaggle dataset. Click <strong>Import to AI CDSS</strong> on any patient to immediately run personalization, safety filtering, and sensitivity simulation.
+              </p>
+            </div>
+            <span class="badge badge-primary" id="kgCohortCountBadge">Loading encounters...</span>
+          </div>
+
+          <!-- Filters -->
+          <div class="kg-filters-bar" style="display:flex;gap:14px;flex-wrap:wrap;padding:12px 18px;background:var(--bg-secondary);border-radius:10px;margin:16px">
+            <div class="filter-item">
+              <label for="kgFilterMed" style="font-size:12px;font-weight:600;display:block;margin-bottom:4px">Active Medication:</label>
+              <select id="kgFilterMed" onchange="filterKagglePatients()" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-main)">
+                <option value="All">All Formulations</option>
+                <option value="metformin">Metformin</option>
+                <option value="insulin">Insulin</option>
+                <option value="glimepiride">Glimepiride / Sulfonylurea</option>
+                <option value="glipizide">Glipizide</option>
+                <option value="glyburide">Glyburide</option>
+                <option value="pioglitazone">Pioglitazone</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="kgFilterOutcome" style="font-size:12px;font-weight:600;display:block;margin-bottom:4px">Readmission Status:</label>
+              <select id="kgFilterOutcome" onchange="filterKagglePatients()" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-main)">
+                <option value="All">All Outcomes</option>
+                <option value="NO">NO (No Readmission)</option>
+                <option value=">30">&gt;30 Days Readmission</option>
+                <option value="<30">&lt;30 Days (Early Readmission)</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="kgFilterComorb" style="font-size:12px;font-weight:600;display:block;margin-bottom:4px">Comorbidity:</label>
+              <select id="kgFilterComorb" onchange="filterKagglePatients()" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-main)">
+                <option value="All">All Comorbidities</option>
+                <option value="CKD">Chronic Kidney Disease</option>
+                <option value="CHF">Cardiovascular / Heart Failure</option>
+                <option value="Hypertension">Hypertension</option>
+                <option value="Asthma">Asthma</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="kgFilterGender" style="font-size:12px;font-weight:600;display:block;margin-bottom:4px">Gender:</label>
+              <select id="kgFilterGender" onchange="filterKagglePatients()" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-main)">
+                <option value="All">All Genders</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Patient Encounters Grid -->
+          <div class="kg-patients-grid" id="kgPatientsContainer" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:16px;padding:16px">
+            <div class="loading-state">Loading Kaggle patient encounters...</div>
           </div>
         </div>
       </section>

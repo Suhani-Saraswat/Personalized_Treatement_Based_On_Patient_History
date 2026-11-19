@@ -165,7 +165,8 @@ function showPage(pageId) {
     recommend: ["AI Treatment Recommendation", "History-Aware Ranking & Multi-Tier Safety Layer"],
     whatif: ["What-If Sensitivity Simulator", "Step 7 Synopsis: Dynamic Clinical Parameter Recalculation"],
     documents: ["Cloud Document Hub & OCR", "Cloudinary Storage & Intelligent Clinical Biomarker Parser"],
-    evaluation: ["Model Benchmarking & Evaluation", "Step 11 Synopsis: Empirical Algorithm Comparison"]
+    evaluation: ["Model Benchmarking & Evaluation", "Step 11 Synopsis: Empirical Algorithm Comparison"],
+    kaggle: ["Kaggle Dataset Hub", "Humberto Brandão 130-US Hospitals (1999–2008) Real-World EHR Cohort"]
   };
 
   if (pageHeaders[pageId]) {
@@ -181,6 +182,7 @@ function showPage(pageId) {
   if (pageId === "whatif") loadWhatIfPatient();
   if (pageId === "documents") renderDocumentVault();
   if (pageId === "evaluation") renderBenchmarkEvaluation();
+  if (pageId === "kaggle") loadKaggleDatasetView();
 }
 
 // Set up nav event listeners
@@ -2114,6 +2116,253 @@ function showToast(msg, type = "success") {
     toast.style.transition = "all 0.3s ease";
     setTimeout(() => toast.remove(), 300);
   }, 3500);
+}
+
+// --------------------------------------------------------------------------
+// PAGE 8: Kaggle Dataset Hub & Real Patient Encounter Integration
+// --------------------------------------------------------------------------
+let cachedKaggleMetadata = null;
+let cachedKagglePatients = [];
+
+async function loadKaggleDatasetView(forceRefresh = false) {
+  const container = $("kgPatientsContainer");
+  if (!container) return;
+
+  if (cachedKaggleMetadata && !forceRefresh) {
+    renderKaggleMetadata(cachedKaggleMetadata);
+  } else {
+    try {
+      const res = await fetch(`${API_BASE_URL}/dataset/info`);
+      if (res.ok) {
+        cachedKaggleMetadata = await res.json();
+        renderKaggleMetadata(cachedKaggleMetadata);
+      }
+    } catch (err) {
+      console.warn("Could not load dataset info:", err);
+    }
+  }
+
+  if (cachedKagglePatients.length > 0 && !forceRefresh) {
+    filterKagglePatients();
+  } else {
+    container.innerHTML = `<div class="loading-state" style="padding:40px;text-align:center;grid-column:1/-1;">Loading real-world Kaggle clinical encounters...</div>`;
+    try {
+      const res = await fetch(`${API_BASE_URL}/dataset/patients?limit=90`);
+      if (res.ok) {
+        const data = await res.json();
+        cachedKagglePatients = data.patients || [];
+        filterKagglePatients();
+      } else {
+        throw new Error("HTTP " + res.status);
+      }
+    } catch (err) {
+      container.innerHTML = `<div class="auth-error-msg" style="grid-column:1/-1;padding:20px;text-align:center;">Failed to load patient encounters from backend API. Ensure the ML service is running.</div>`;
+    }
+  }
+}
+
+function renderKaggleMetadata(meta) {
+  if (!meta) return;
+  if ($("kgTotalEncounters")) $("kgTotalEncounters").textContent = (meta.total_records || 101766).toLocaleString();
+  if ($("kgHospitals")) $("kgHospitals").textContent = `${meta.hospitals_represented || 130} Centers`;
+  if ($("kgUniquePatients")) $("kgUniquePatients").textContent = (meta.unique_patients || 71515).toLocaleString();
+
+  // Med distribution list
+  const medList = $("kgMedDistList");
+  if (medList && meta.medication_distribution) {
+    const m = meta.medication_distribution;
+    const totalMeds = Object.values(m).reduce((a, b) => a + b, 0) || 1;
+    medList.innerHTML = Object.entries(m).map(([name, count]) => {
+      const pct = ((count / totalMeds) * 100).toFixed(1);
+      return `
+        <div style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+            <strong>${name.replace("_", " ")}</strong>
+            <span>${count.toLocaleString()} cases (${pct}%)</span>
+          </div>
+          <div style="height:8px;background:var(--bg-secondary);border-radius:4px;overflow:hidden">
+            <div style="height:100%;width:${pct}%;background:linear-gradient(90deg, var(--accent-primary), var(--accent-teal));border-radius:4px"></div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // Readmission summary
+  const readmitBox = $("kgReadmitSummary");
+  if (readmitBox && meta.readmission_distribution) {
+    const r = meta.readmission_distribution;
+    const totalR = (r["NO"] || 0) + (r[">30"] || 0) + (r["<30"] || 0) || 1;
+    const noPct = (((r["NO"] || 0) / totalR) * 100).toFixed(1);
+    const gtPct = (((r[">30"] || 0) / totalR) * 100).toFixed(1);
+    const ltPct = (((r["<30"] || 0) / totalR) * 100).toFixed(1);
+    readmitBox.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+        <div style="background:var(--bg-secondary);padding:12px;border-radius:8px;text-align:center">
+          <div style="font-size:12px;color:var(--text-muted)">No Readmission</div>
+          <strong style="font-size:18px;color:#10b981">${(r["NO"] || 0).toLocaleString()}</strong>
+          <div style="font-size:11px;color:var(--text-muted)">${noPct}% stable</div>
+        </div>
+        <div style="background:var(--bg-secondary);padding:12px;border-radius:8px;text-align:center">
+          <div style="font-size:12px;color:var(--text-muted)">&gt;30d Readmit</div>
+          <strong style="font-size:18px;color:#f59e0b">${(r[">30"] || 0).toLocaleString()}</strong>
+          <div style="font-size:11px;color:var(--text-muted)">${gtPct}% delayed</div>
+        </div>
+        <div style="background:var(--bg-secondary);padding:12px;border-radius:8px;text-align:center">
+          <div style="font-size:12px;color:var(--text-muted)">&lt;30d Early</div>
+          <strong style="font-size:18px;color:#f43f5e">${(r["<30"] || 0).toLocaleString()}</strong>
+          <div style="font-size:11px;color:var(--text-muted)">${ltPct}% acute relapse</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);line-height:1.5">
+        Evaluating 30-day readmission risk allows the MediPersonal AI safety layer to identify regimens that maintain outpatient glycemic control and prevent avoidable hospital re-hospitalization.
+      </p>
+    `;
+  }
+}
+
+function filterKagglePatients() {
+  const container = $("kgPatientsContainer");
+  if (!container) return;
+
+  const medFilter = ($("kgFilterMed") ? $("kgFilterMed").value : "All").trim().toLowerCase();
+  const outcomeFilter = ($("kgFilterOutcome") ? $("kgFilterOutcome").value : "All").trim();
+  const comorbFilter = ($("kgFilterComorb") ? $("kgFilterComorb").value : "All").trim().toLowerCase();
+  const genderFilter = ($("kgFilterGender") ? $("kgFilterGender").value : "All").trim().toLowerCase();
+
+  let list = cachedKagglePatients;
+  if (medFilter !== "all") {
+    list = list.filter(p => (p.active_hospital_medications || []).some(m => m.toLowerCase().includes(medFilter)));
+  }
+  if (outcomeFilter !== "All") {
+    list = list.filter(p => p.readmitted === outcomeFilter);
+  }
+  if (comorbFilter !== "all") {
+    list = list.filter(p => (p.comorbidities || []).some(c => c.toLowerCase().includes(comorbFilter)));
+  }
+  if (genderFilter !== "all") {
+    list = list.filter(p => (p.gender || "").toLowerCase() === genderFilter);
+  }
+
+  if ($("kgCohortCountBadge")) {
+    $("kgCohortCountBadge").textContent = `Showing ${list.length} of ${cachedKagglePatients.length} Sample Encounters`;
+  }
+
+  if (list.length === 0) {
+    container.innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--text-muted)">No Kaggle patient encounters matched the selected filters.</div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(p => {
+    const isReadmit = p.readmitted === "<30";
+    const isDelayed = p.readmitted === ">30";
+    const readmitBadge = isReadmit
+      ? `<span class="badge badge-rose" style="font-size:11px">&lt;30d Early Readmit</span>`
+      : (isDelayed
+        ? `<span class="badge badge-amber" style="font-size:11px">&gt;30d Readmit</span>`
+        : `<span class="badge badge-emerald" style="font-size:11px">No Readmit (Stable)</span>`);
+
+    const comorbTags = (p.comorbidities || []).map(c =>
+      `<span class="tag-pill" style="font-size:11px;background:rgba(14,165,233,0.1);color:#0284c7;padding:2px 6px;border-radius:4px">${c}</span>`
+    ).join(" ");
+    const medTags = (p.active_hospital_medications || []).map(m =>
+      `<span class="tag-pill" style="font-size:11px;background:rgba(16,185,129,0.1);color:#059669;padding:2px 6px;border-radius:4px">${m}</span>`
+    ).join(" ");
+
+    return `
+      <div class="card" style="margin:0;padding:16px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-card);display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div>
+              <strong style="font-size:14px;color:var(--text-main)">Encounter #${p.encounter_id}</strong>
+              <div style="font-size:12px;color:var(--text-muted)">Patient #${p.patient_nbr} · ${p.gender}, Age ${p.age}</div>
+            </div>
+            ${readmitBadge}
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;background:var(--bg-secondary);padding:10px;border-radius:8px;font-size:12px">
+            <div><span style="color:var(--text-muted)">Hospital Stay:</span> <strong>${p.time_in_hospital_days} days</strong></div>
+            <div><span style="color:var(--text-muted)">HbA1c Est:</span> <strong>${p.hba1c_estimated}%</strong></div>
+            <div><span style="color:var(--text-muted)">eGFR Est:</span> <strong>${p.egfr_estimated} mL/min</strong></div>
+            <div><span style="color:var(--text-muted)">Systolic BP:</span> <strong>${p.systolic_bp} mmHg</strong></div>
+          </div>
+
+          <div style="margin-bottom:8px">
+            <span style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:3px">Diagnoses / ICD-9:</span>
+            <div style="font-size:12px;font-weight:500;color:var(--text-main)">${p.primary_diagnosis} ${p.secondary_diagnosis && p.secondary_diagnosis !== '?' ? '· ' + p.secondary_diagnosis : ''}</div>
+            <div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px">${comorbTags || '<span style="font-size:11px;color:var(--text-muted)">No secondary comorbidities</span>'}</div>
+          </div>
+
+          <div style="margin-bottom:12px">
+            <span style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:3px">Active Hospital Regimen:</span>
+            <div style="display:flex;flex-wrap:wrap;gap:4px">${medTags || '<span style="font-size:11px;color:var(--text-muted)">Diet / Lifestyle Monitored</span>'}</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="importKagglePatientToCDSS('${p.encounter_id}')" style="margin-top:8px;padding:8px 12px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+          <span>Import to AI CDSS</span>
+        </button>
+      </div>
+    `;
+  }).join("");
+}
+
+function importKagglePatientToCDSS(encounterId) {
+  const p = cachedKagglePatients.find(x => String(x.encounter_id) === String(encounterId));
+  if (!p) return;
+
+  const ptId = `KG-${p.encounter_id}`;
+  const comorbs = (p.comorbidities || []).join(", ") || "None";
+  const meds = (p.active_hospital_medications || []).map(m => m.charAt(0).toUpperCase() + m.slice(1)).join(", ") || "None";
+  const resp = p.readmitted === "NO" ? "Good" : (p.readmitted === "<30" ? "Adverse reaction" : "Moderate");
+  const adv = p.readmitted === "<30" ? "Early 30-Day Hospital Readmission" : "None";
+
+  let existing = patients.find(x => x.id === ptId);
+  if (!existing) {
+    const newPt = {
+      id: ptId,
+      name: `Patient #${p.patient_nbr} (Kaggle)`,
+      age: p.age_num || 55,
+      gender: p.gender || "Female",
+      condition: "Type 2 Diabetes",
+      disease_duration: Math.round(Math.min(18.0, Math.max(1.0, (p.num_medications * 0.4) + p.time_in_hospital_days))),
+      egfr: p.egfr_estimated || 75.0,
+      hba1c: p.hba1c_estimated || 8.2,
+      systolic_bp: p.systolic_bp || 135,
+      creatinine: p.egfr_estimated < 45 ? 1.7 : 1.0,
+      potassium: 4.3,
+      comorbidity: comorbs,
+      allergy: "None",
+      medication: meds,
+      response: resp,
+      previous_adverse: adv,
+      history: [
+        {
+          year: "Hospital Admission",
+          title: `Inpatient Admission (${p.time_in_hospital_days} Days)`,
+          desc: `Admitted under primary diagnosis ${p.primary_diagnosis}. Received ${p.num_medications} medications during encounter.`
+        },
+        {
+          year: "Outcome",
+          title: `Discharge Status · Readmission: ${p.readmitted}`,
+          desc: p.readmitted === "NO" ? "Successfully discharged without 30-day readmission." : `Documented re-admission outcome: ${p.readmitted}`
+        }
+      ]
+    };
+    patients.unshift(newPt);
+    populateAllPatientSelectors();
+  }
+
+  activePatientId = ptId;
+  const sel = $("recommendPatientSelect");
+  if (sel) sel.value = ptId;
+
+  showPage("recommend");
+  showToast(`Encounter #${p.encounter_id} loaded into CDSS! Running personalized treatment ranking...`, "success");
 }
 
 // --------------------------------------------------------------------------
